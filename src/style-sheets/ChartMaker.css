@@ -1,0 +1,45 @@
+.mainchart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.chart-container {
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  padding-top: 30px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  width: 600px;
+}
+
+#new-menu {
+ width: 100%;
+ margin-bottom: 10px;
+}
+
+#see-phrases-button {
+  height: 40px;
+  font-size: 17px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  letter-spacing: 1px;
+  color: #fff;
+  background-color: black;
+  border: none; /* Quita el borde */
+  border-radius: 5px; /* Bordes redondos */
+  cursor: pointer; /* Cambia el cursor al pasar el ratón */
+  transition: background-color 0.3s ease; /* Transición de color de fondo suave */
+  /* Estilos cuando el botón está en estado "hover" (pasando el ratón por encima) */
+  &:hover {
+    background-color: rgb(48, 48, 48); /* Cambia el color de fondo en hover */
+  }
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+  @media (max-width: 700px) {
+    .chart-container {
+      width: 95vw;
+      font-size: 16px;
+    }
+  }

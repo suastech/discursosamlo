@@ -1,0 +1,171 @@
+.main-container {
+  display: flex; /* Usa un contenedor flexible para centrar el contenido */
+  flex-direction: column; /* Apila los elementos verticalmente */
+  align-items: center; /* Centra horizontalmente los elementos */
+  justify-content: center;
+  width: 100vw;
+  padding: 20px 0;
+}
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content:space-between;
+  border: 2px solid black;
+  box-sizing: border-box;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 18px;
+  height: 50px;
+  width: 75%;
+}
+#phraseLoading {
+  padding: 200px 0px;
+  position:relative;
+  top: -100px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.circle {
+  width: 35px;
+  height: 35px;
+  border: 3px solid rgba(0, 123, 255, 0.3); /* Borde transparente */
+  border-radius: 50%; /* Forma de círculo */
+  border-top: 3px solid #007bff; /* Borde superior azul */
+  animation: spin 1s linear infinite; /* Animación de rotación */
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.prev-next {
+  background-color: black; 
+  color: white; 
+  border: none;
+  border-radius: 50%; 
+  width: 25px;
+  height: 25px;
+  font-size: 16px; 
+  cursor: pointer;
+  margin: 3px;
+  font-weight: bold;
+  &:hover {
+    box-shadow: 0 0 3px 3px rgb(130, 130, 130);
+  }
+  &:active {
+    transform: scale(0.95);
+  }
+  }
+
+#change-page {
+  height: 35px;
+  width: 50px;
+}
+
+.download-button {
+    margin-right: 5px;
+    height: 35px;
+    width: 150px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff; /* Color del texto */
+    background-color: black; /* Color de fondo */
+    border: none; /* Quita el borde */
+    border-radius: 5px; /* Bordes redondos */
+    cursor: pointer; /* Cambia el cursor al pasar el ratón */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra suave */
+    transition: background-color 0.3s ease; /* Transición de color de fondo suave */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Estilos cuando el botón está en estado "hover" (pasando el ratón por encima) */
+    &:hover {
+      background-color: rgb(48, 48, 48); /* Cambia el color de fondo en hover */
+    }
+    &:active {
+      transform: scale(0.95);
+    }
+}
+
+.downloading-effect {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(0, 123, 255, 0.3); /* Borde transparente */
+  border-radius: 50%; /* Forma de círculo */
+  border-top: 3px solid #007bff; /* Borde superior azul */
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.phrase-space {
+    width: 75%;
+    display: flex;
+    background-color: #f0f0f0;
+    font-size: 14px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: left;
+    font-size: 16px;
+  }
+  
+  .left-column {
+    flex: 1;
+    border-bottom: 1px solid black;
+    border-left : 1px solid black;
+    border-right: 1px solid black;
+
+  }
+  
+  .right-column {
+    flex: 5;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+  }
+  .right-column a{
+    text-decoration: none;
+    color: inherit;
+    &:hover{
+      color: blue;
+      text-decoration: underline;
+    }
+  }
+  
+  .left-column p, .right-column p {
+    margin: 10px;
+  }
+
+  .resaltado {
+    background-color: yellow;
+  }
+
+  @media (max-width: 700px) {
+    .top-bar {
+     width: 95%;
+     font-size: 14px;
+     height: 60px;
+    }
+    .phrase-space {
+      width: 95%;
+      font-size: 11px;
+    }
+    .prev-next {
+      width: 20px;
+      height: 20px;
+      font-size: 12px;       
+      }
+    #change-page {
+      height: 20px;
+      width: 40px;
+    }
+    
+    .download-button {
+        margin-right: 5px;
+        height: 40px;
+        width: 120px;
+        font-size: 14px;
+        font-weight: 500;
+  } 
+}

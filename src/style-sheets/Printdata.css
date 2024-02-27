@@ -1,0 +1,34 @@
+#printspace {
+    font-size: 15px;
+    background-color: none;
+    display: flex;
+    cursor: pointer;
+    width: fit-content;
+}
+
+#dataimage {
+    height: 30px;
+    border-radius: 5px;
+} 
+
+.format-data {
+    width: 50px;
+    height: 30px;
+    margin-left: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(154, 154, 154);
+    &:hover {
+    box-shadow: 0 0 4px 4px rgb(3, 102, 132) 
+    }
+}
+
+
+@media (max-width: 700px) {
+    #dataimage {
+        height: 20px;
+    }
+  }

@@ -1,0 +1,139 @@
+.search {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: 40px;
+}
+
+.input-styles {
+    width: 400px;
+    height: 50px;
+    font-size: 20px;
+    border-radius: 10px;
+    text-indent: 45px;
+    background-image: url(../imagenes/lupa.png);
+    background-size: 25px; 
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    outline: none;
+  }
+
+.input-styles:focus {
+  border: 1px solid #007bff; /* Cambia el borde al enfocar el elemento */
+  box-shadow: 0 0 3px rgba(0, 123, 255, 0.5); /* Agrega una sombra al enfocar el elemento */
+}
+
+.searchButton {
+    height: 45px;
+    padding: 0 20px; /* Agrega un espacio interior horizontal */
+    padding-top: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: black;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Transición de color de fondo suave */
+    &:hover {
+      background-color: rgb(48, 48, 48); /* Cambia el color de fondo en hover */
+    }
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+#historialDropdown {
+  width: 140px;
+  height: 30px;
+  border-radius: 10px;
+  text-indent: 5px;
+  margin-left: 220px;
+}
+
+.frecuent-graphs {
+  margin-top: 15px;
+  cursor: pointer;
+  font-size: 18px;
+  text-decoration: underline
+}
+
+#frecuent {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid black;
+  border-right: 1px solid gray;
+  border-radius: 20px;
+  font-size: 18px;
+}
+table {
+  width: 600px;
+  font-size: 16px;
+}
+
+/* Estilos para las celdas */
+tr {
+  height: 60px; /* Altura de las filas */
+}
+
+td:hover span {
+  cursor: pointer; /* Cambia el cursor a la mano */
+  text-decoration: underline; /* Subraya el texto */
+}
+
+
+@media (max-width: 700px) {
+  .search {
+    padding-top: 50px;
+  }
+  #exactWord {
+   margin-top: 20px;
+  }
+  .input-styles {
+    width: 200px;
+    height: 40px;
+    font-size: 16px;
+    text-indent: 25px;
+    background-size: 15px; 
+    background-position: 5px center;
+    padding: 0px;
+    margin-top: 25px;
+  }
+  .searchButton {
+    height: 40px;
+    width: 90px;
+    border-radius: 15px;
+    font-size: 16px;
+  }
+  #historialDropdown {
+    margin-left: 20px;
+  }
+  #frecuentbutton {
+    margin-top: 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    text-decoration: underline
+  
+  }
+  
+  table {
+    width: 400px;
+    font-size: 14px;
+  }
+  
+  /* Estilos para las celdas */
+  tr {
+    height: 60px; /* Altura de las filas */
+  }
+    
+  td:hover span {
+    cursor: pointer; /* Cambia el cursor a la mano */
+    text-decoration: underline; /* Subraya el texto */
+  }
+}
+
+@media (max-width: 700px) {
+  
+}

@@ -1,38 +1,55 @@
-.App {
+.body-content {
+  min-height:95vh;
+  height: fit-content;
+  position: relative;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  padding-bottom: 40px;
+}
+
+#ask-support {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: fit-content;
+  border-radius: 20px;
+  padding-top: 15px;
+  padding-bottom: 10px;
+  background-color: rgba(221, 221, 221);
   text-align: center;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  border: 1px solid rgb(0, 0, 0);
+  z-index: 3;
+}
+#ask-support p {
+  margin: 30px 30px;
+  font-size: 30px
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#ask-support img {
+ display:block;
+ margin:0 auto
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+  @media (max-width: 700px) {
+    #ask-support {
+      width: 90vw;
+      top: 23%;
+    }
+    #ask-support p {
+      margin: 30px 30px;
+      font-size: 20px
+    }
+    #ask-support img {
+     display:block;
+     margin:0 auto
+    }
+ footer {
+      height: 120px;
+    }
+  footer p {
+      font-size: 12px;
+      margin: 2px 5px;
+    }
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}

@@ -1,0 +1,17 @@
+header {
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI';
+  }
+header img {
+  height: 90px;
+  margin-left: 65px;
+}
+
+
+  @media screen and (max-width: 780px) {
+    
+  }
+
