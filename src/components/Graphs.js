@@ -29,10 +29,10 @@ function Graphs( {setIsGraphs}) {
 
   const copyToClipboard = () => {
     let textToCopy = topicOrword ? JSON.stringify(barData[selectedBarValue]) : '';
-    
     if (!topicOrword) {
       selectedLineValue.forEach((value) => {
         const mappedValue = lineData.list_of_words[value];
+
         if (mappedValue) {
           textToCopy += `${value}\nTotal: ${mappedValue.total}\n${JSON.stringify(mappedValue.counter)}\n\n`;
         }
@@ -124,7 +124,7 @@ return (
 
 <div id='graphs-full'>
   <div id='graphs-main'>
-    <img style={{height:'30px', margin:'0 auto', cursor:'pointer'}} onClick={() => setIsGraphs(false)} 
+    <img style={{height:'40px', margin:'30px auto 0px auto', cursor:'pointer'}} onClick={() => setIsGraphs(false)} 
       src={close} alt='close'/>
     <div id='switch-box' style={{display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize:'18px', marginTop:'30px', marginBottom:'30px'}}>
        <div style={{marginRight:'5px', color: topicOrword? 'black' : 'gray' }}>Temáticos</div> 
@@ -203,7 +203,6 @@ return (
             ))
           }
       </div>
-
       <Line data={dataLine} options={options} className='graphitself'/>
       </>
     }

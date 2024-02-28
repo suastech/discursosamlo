@@ -23,8 +23,8 @@ function App() {
   useEffect(() => {
     const fetchObject = async () => {
       try {
-        const response = await axios.get('https://discursosamlo.s3.us-east-2.amazonaws.com/historial/main_historial.json');
-        console.log("Revisar si se conectó al Bucket", response.data);
+        //const response = await axios.get('https://discursosamlo.s3.us-east-2.amazonaws.com/historial/main_historial.json');
+        //console.log("Revisar si se conectó al Bucket", response.data);
         setQuantity(pseudo.quantity);//OJO: modificar a response.data 
         setLastUpdate(pseudo.last);
         setExternalHistorial(pseudo.list_of_words);
@@ -60,7 +60,7 @@ function App() {
               <img id='closeButton' style={{height: '50px'}} onClick={() => setNumOfSearch(0)} 
                         src={close} alt='close'/>
                   <p>Este buscador es una herramienta de apoyo para académicos, estudiantes, periodistas y ciudadanos interesados en el análisis del discurso.</p>
-                  <p>Si te resulta útil, puedes apoyarnos haciendo un donativo a través de PayPal.</p>
+                  <p>Si te resulta útil, puedes apoyar con un donativo a través de PayPal.</p>
                   <div className='donateImages'>
                   <a href="https://www.paypal.com/donate/?hosted_button_id=FJZLMWAHT6QFC" rel='noreferrer' target="_blank">
                   <img src={paypal} alt='paypal' className='paypal' style={{width: '400px'}}/></a>  

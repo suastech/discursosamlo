@@ -10,11 +10,9 @@ import creativeCommons from '../imagenes/licencia.png';
 import descargar from '../imagenes/descargar.jpg';
 import Printdata from './Printdata.js';
 
-
 function SideBar(props) {
-  const {isInfo, setIsInfo, isSupport, setIsSupport, isExtra, setIsExtra, isDownloadData, setIsDownloadData, numOfSearch, lastUpdate, quantity} = props
+  const {isInfo, setIsInfo, isSupport, setIsSupport, isExtra, setIsExtra, isDownloadData, setIsDownloadData} = props
   const [isExpanded, setIsExpanded] = useState(false);
-  const [welcome, setWelcome] = useState(true);
 
   const toggleSidebar = () => {
     setIsExpanded(!isExpanded);
@@ -38,20 +36,7 @@ function SideBar(props) {
       setter(false);
   }
 
-  /*
-  {!welcome && numOfSearch === 0 ?
-          <div className='info-container' style={{zIndex:'1'}}>
-              <img id='closeButton' onClick={() => setWelcome(false)} 
-                      src={close} alt='close'/>
-              <p>La base de datos contiene las conferencias de prensa y discursos pronunciados en su gran mayoría por el presidente de México.</p>
-              <p> Para saber más sobre el funcionamiento del buscador, puedes haer click en el ícono de <span style={{color:'blue', textDecoration:'underline', cursor:'pointer'}} onClick={()=> {setWelcome(false); setIsInfo(true)}} >Información</span>.</p>
-          </div>
-          :
-          null
-}
- */
-
-  return (
+return (
   <>
     <div className={`sidebar${isExpanded ? '-expanded' : ''}`}>
 

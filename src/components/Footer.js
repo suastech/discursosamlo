@@ -1,5 +1,4 @@
 import '../style-sheets/Footer.css'
-import logo from '../imagenes/1.png'
 
 function Footer () {
   const [update,quantity] = ["17/02/2024", "2,134"]
@@ -17,14 +16,10 @@ function Footer () {
           <p style={{marginBottom:'8px'}}>Programación y diseño:<br/>Jesús Suaste Cherizola</p>
           <a href="https://suastech.github.io/" target="_blank" rel="noreferrer">https://suastech.github.io/</a>
           <br/>
-          <a href="https://twitter.com/suaste86" target="_blank" rel="noreferrer">@suaste86</a>     
+          <a href="https://twitter.com/suaste86" target="_blank" rel="noreferrer">@suaste86</a>
       </div>
 
-      <div id='footerlogo'>
-        <img src={logo} alt='logo'></img>
-        
-      </div>
-
+ 
     </footer>
   );
 };

@@ -16,7 +16,7 @@ function CompleteList (props) {
   const handleSelection = (value) => {
   if (origin === true) {
     apagador(false)
-    handleSearch(value, false)
+    handleSearch(value[0]=== "'"?value.substring(1, value.length - 1): value, value[0]=== "'"? true:false)
     }
   else {
       let updateValue = [...arrayOfWords]

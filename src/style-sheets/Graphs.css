@@ -1,8 +1,8 @@
 #graphs-full {
   display: flex;
   justify-content: center;
-  padding: 20px 0px;
   background-color: white;
+  margin-top: 20px;
 }
 
 #graphs-main {

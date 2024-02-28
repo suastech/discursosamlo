@@ -14,6 +14,8 @@ const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind, exactE
   let pagesNeeded = Math.ceil(historial[phraseToFind].number / phrasesPerPage);
   const [isLoading, setIsLoading] = useState(true);
 
+  const locationsExist= false;
+
   const handlePrevNext = (num) => {
     setIsLoading(true);
     document.getElementById("change-page").value = "";
@@ -74,20 +76,35 @@ const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind, exactE
   }
 
   useEffect(() => {
-    async function fetchData() {
-      let temporary_locations = null;
-      if (historial[phraseToFind].locations === true) {
-       try
-       {const response = await axios.get(`https://discursosamlo.s3.us-east-2.amazonaws.com/historial/locations/${phraseToFind}.json`) 
+  async function fetchData() {
+    if (historial[phraseToFind].locations === true && locationsExist=== false)
+    {
+      /*
+      const response = await axios.get(`/full?phrase=${phraseToFind}`);
+      setLocationOccurrences (response !== undefined ? response.data[0]: []);
+      setPhrasesToShow(response !== undefined ? response.data[1]:[]);
+      setHistorial(prevHistorial => ({
+        ...prevHistorial,[phraseToFind]: {
+          locations: response.data[0],
+        }
+        }));*/
+     console.log("lógica para llamar al servidor con 'full' y añadir localizaciones")
+     setIsLoading(false);
+    }
+    else { 
+       let temporary_locations = null;
+       if (historial[phraseToFind].locations === true) {
+        try {
+        const response = await axios.get(`https://discursosamlo.s3.us-east-2.amazonaws.com/historial/locations/${phraseToFind}.json`) 
         const newLocations = response.data
-       setHistorial(prevHistorial => ({
-          ...prevHistorial,
-          [phraseToFind]: {
-            ...prevHistorial[phraseToFind], 
-              locations: newLocations}
-        }));
-        setLocationOccurrences(newLocations);
-        temporary_locations = newLocations;
+        setHistorial(prevHistorial => ({
+            ...prevHistorial,
+            [phraseToFind]: {
+              ...prevHistorial[phraseToFind], 
+                locations: newLocations}
+          }));
+          setLocationOccurrences(newLocations);
+          temporary_locations = newLocations;
       } catch (error) {
         console.error('Error al obtener los datos del servidor', error)
       }
@@ -101,6 +118,7 @@ const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind, exactE
           setIsLoading(false);
         }
     }
+  }
   fetchData();
   }, [currentPage]);
 

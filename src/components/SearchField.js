@@ -5,7 +5,7 @@ import Finder from './Finder.js';
 import Graphs from './Graphs.js';
 import WaitingBoxes from './WaitingBoxes.js';
 import CompleteList from './CompleteList.js';
-
+import close from '../imagenes/closebutton.png';
 
 const SearchField = (props) => {
   const {displayChart, setDisplayChart, numOfSearch, setNumOfSearch, setIsInfo, setIsSupport, setIsExtra, externalHistorial} = props;
@@ -20,6 +20,8 @@ const SearchField = (props) => {
   const [optionHistorial, setOptionHistorial] = useState('Historial');
   const [isFrecuent, setIsFrecuent] = useState(false);
   const [isGraphs, setIsGraphs] = useState(false);
+  const [welcome, setWelcome] = useState(true);
+
   const exepciones = ['Fox'];
   
   const externalList = Object.keys(externalHistorial);
@@ -64,6 +66,8 @@ async function launchsearch(phrase, exact) {
     setIsLoading(true);
     setDisplayChart(true);
     
+    console.log("valor de locationOccurrences", locationOccurrences)
+    
    if (historial[key]) {
       //La respuesta sale desde el historial:
       await new Promise(resolve => setTimeout(resolve, 2000));
@@ -88,7 +92,7 @@ async function launchsearch(phrase, exact) {
           //await new Promise(resolve => setTimeout(resolve, 2000));
           //console.log("funciona la pausa?")
           newLocationOccurrences = true;
-          newMainCounter= externalHistorial[phrase].counter;
+          newMainCounter= externalHistorial[key].counter;
           /* Si cambié el formato de los datos de historial a un array, aquí es donde debo reformatear: 
           newMainCounter =
               {
@@ -133,7 +137,7 @@ async function launchsearch(phrase, exact) {
   }
   }
 
-const handleSearch = (phrase,exact) => {
+const handleSearch = (phrase, exact) => {
     let allow = false;
     for (let i = 0; i < exepciones.length; i++) {
       if (phrase === exepciones[i]) {
@@ -158,7 +162,6 @@ const handleSearch = (phrase,exact) => {
   const handleHistorial = (event) => {
     setDisplayChart(false)
     setOptionHistorial("Historial");
-    document.getElementById("searchField").value = event.target.value;
     const word = historial[event.target.value].exact?
       event.target.value.substring(1, event.target.value.length - 1)
         :
@@ -169,11 +172,10 @@ const handleSearch = (phrase,exact) => {
 
 return (
   <>
-
    {isFrecuent? <CompleteList handleSearch={handleSearch} origin={true} apagador={setIsFrecuent}/>:null      }
    {isGraphs?
       <Graphs setIsGraphs={setIsGraphs}/>
-      : 
+      :
       <> 
       <div className='search'>
           <div>
@@ -195,7 +197,7 @@ return (
             </button>
           </div>
             
-          <div style={{marginTop: '25px'}}>
+          <div style={{marginTop: '15px'}}>
             <label>
               <input type="checkbox"
                      checked={exactExpression}
@@ -221,6 +223,18 @@ return (
           </div>
         
       </div>
+
+      {welcome && numOfSearch < 1 ?
+       <div id='welcome-message'>
+        <img id='closeButton' onClick={() => setWelcome(false)} 
+        src={close} alt='close'/>
+          <p>¡Bienvenid@!</p>
+          <p>Esta herramienta encuentra palabras y frases pronunciadas por el presidente de México en sus conferencias de prensa y actos públicos.</p>
+          <p>Para saber más sobre el funcionamiento del buscador puedes hacer click en el ícono de <span style={{color:'blue', textDecoration:'underline', cursor:'pointer'}} onClick={()=> {setWelcome(false); setIsInfo(true)}} >Información</span>.</p>
+       </div>
+       :
+       null
+      }
 
       {displayChart ? (
           isLoading ? (
