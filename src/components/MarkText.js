@@ -1,11 +1,11 @@
 import React from 'react';
 
 function MarkText(props) {
-  const { element, website, phraseToFind, exactExpression } = props;
-  let expression = exactExpression? new RegExp(`\\b${phraseToFind}\\b`, "g") : phraseToFind
+  const { element, website, phraseToFind } = props;
+  
 
   // Dividir el texto en parts antes y después de la palabra deseada
-  const parts = element.split(expression);
+  const parts = element.split(phraseToFind);
 
   // Crear un arreglo de elementos JSX que incluyen la palabra resaltada
   const content = parts.map((part, index) =>

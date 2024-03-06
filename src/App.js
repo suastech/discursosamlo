@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import close from './imagenes/closebutton.png';
 import paypal from './imagenes/paypal.png';
-import pseudo from './pseudohistorial.js'
+import pseudo from './pseudohistorial.js';
 
 function App() {
   const [displayChart, setDisplayChart] = useState(false);
@@ -24,7 +24,10 @@ function App() {
     const fetchObject = async () => {
       try {
         //const response = await axios.get('https://discursosamlo.s3.us-east-2.amazonaws.com/historial/main_historial.json');
-        //console.log("Revisar si se conectó al Bucket", response.data);
+        //const response2 = await axios.get(process.env.HISTORIAL_JSON_URL);
+        
+        //console.log("De aws", response.data); 
+        //console.log("De Vercel", response2.data);
         setQuantity(pseudo.quantity);//OJO: modificar a response.data 
         setLastUpdate(pseudo.last);
         setExternalHistorial(pseudo.list_of_words);
@@ -35,7 +38,6 @@ function App() {
     fetchObject();
   }, []);
   
-
   return (
   <div className='full-content'>
     <Header/>

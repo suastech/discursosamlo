@@ -1,5 +1,4 @@
-
-const lineData = {
+{
   "last": "16/02/2024",
   "quantity": "2,198",
   "list_of_words": {
@@ -1613,7 +1612,3 @@ const lineData = {
     }
   }
 }
-
-  
-
-export default lineData;

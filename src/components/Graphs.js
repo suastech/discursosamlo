@@ -13,7 +13,6 @@ import { Chart, BarController, BarElement, CategoryScale, LinearScale, Title, Ch
 import CompleteList from './CompleteList.js';
 Chart.register(BarController, BarElement, CategoryScale, LinearScale, Title);
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
-//<p style={{marginLeft:'20px'}}>Total:{lineData.list_of_words[value].total}</p>
 
 
 function Graphs( {setIsGraphs}) {
@@ -32,11 +31,12 @@ function Graphs( {setIsGraphs}) {
     if (!topicOrword) {
       selectedLineValue.forEach((value) => {
         const mappedValue = lineData.list_of_words[value];
-
         if (mappedValue) {
-          textToCopy += `${value}\nTotal: ${mappedValue.total}\n${JSON.stringify(mappedValue.counter)}\n\n`;
+          textToCopy += `Término: "${value}"\nTotal: ${mappedValue.total}\n${mappedValue.counter.map(
+            (year, index) => `${2018 + index}: ${year}`).join('\n')}\n\n` 
         }
       });
+      textToCopy += `El discurso presidencial. discursosamlo.vercel.app`
     }
     navigator.clipboard.writeText(textToCopy.trim())
       .then(() => {
@@ -68,7 +68,7 @@ function Graphs( {setIsGraphs}) {
   const dataLine = {
     labels: ["2018","2019","2020","2021","2022","2023","2024"],
     datasets: selectedLineValue.map((element, index) => {
-      const valuesLine = lineData.list_of_words[element]? Object.values(lineData.list_of_words[element].counter):[];
+      const valuesLine = lineData.list_of_words[element]? lineData.list_of_words[element].counter:[];
       return {
         label: element,
         data: valuesLine,

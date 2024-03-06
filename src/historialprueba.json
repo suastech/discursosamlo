@@ -1,6 +1,10 @@
 {
     "last": "16/02/2024",
     "quantity": "2,198",
+    "con_paquete": {
+                "palabra": "link",
+                "palabra2": "link"
+    },
     "list_of_words": {
      "abrazos": {
       "counter": {

@@ -4,6 +4,7 @@ header {
     justify-content: center;
     align-items: center;
     font-family: 'Segoe UI';
+    padding-top: 10px;
   }
 header img {
   height: 90px;

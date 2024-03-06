@@ -109,7 +109,7 @@ return (
         <img id='closeButton' onClick={() => closeButton(setIsDownloadData)} 
                 src={close} alt='close'/>
         <div>Descarga la base de búsquedas frecuentes en CSV o XLSX (26Kb) </div>
-        <div style={{width:'100px', height:'30px', marginTop:'10px', marginLeft: '230px'}}>
+        <div style={{height:'30px', display:'flex', marginTop:'10px', justifyContent:'center'}}>
             <Printdata/>
         </div>
 

@@ -6,6 +6,7 @@ import Graphs from './Graphs.js';
 import WaitingBoxes from './WaitingBoxes.js';
 import CompleteList from './CompleteList.js';
 import close from '../imagenes/closebutton.png';
+import forbidden from '../forbidden.js';
 
 const SearchField = (props) => {
   const {displayChart, setDisplayChart, numOfSearch, setNumOfSearch, setIsInfo, setIsSupport, setIsExtra, externalHistorial} = props;
@@ -15,15 +16,14 @@ const SearchField = (props) => {
   const inputRef = useRef(null);
   const [displayPhrases, setDisplayPhrases] = useState(false);
   const [isLoading, setIsLoading] = useState(false); 
-  const [exactExpression, setExactExpression] = useState(false);
   const [historial, setHistorial] = useState({});
   const [optionHistorial, setOptionHistorial] = useState('Historial');
   const [isFrecuent, setIsFrecuent] = useState(false);
   const [isGraphs, setIsGraphs] = useState(false);
   const [welcome, setWelcome] = useState(true);
 
-  const exepciones = ['Fox'];
-  
+  const exepciones = ["fox", "ine", "pri", "pan"];
+
   const externalList = Object.keys(externalHistorial);
 
   const handleInput = (event) => {
@@ -34,12 +34,12 @@ const SearchField = (props) => {
   
 const handleKeyPress = (event) => {
   if (event.key === 'Enter') {
-    handleSearch(inputRef.current.value, exactExpression);
+    handleSearch(inputRef.current.value);
     }
   };
 
-function display_results(number) {
-      if (number > 0) {
+function display_results(total) {
+      if (total > 0) {
            setIsLoading(false)
       } else { 
           setDisplayChart(false)
@@ -49,8 +49,7 @@ function display_results(number) {
       }
     }
 
-async function launchsearch(phrase, exact) {
-    const key = exact? `'${phrase}'`: phrase;
+async function launchsearch(phrase) {
     //Menu buttons
     setIsInfo(false);
     setIsSupport(false);
@@ -59,58 +58,37 @@ async function launchsearch(phrase, exact) {
     setIsGraphs(false);
 
     //States
-    setExactExpression(false);
-
-    setPhraseToFind(key);
+    setPhraseToFind(phrase);
     setDisplayPhrases(false);
     setIsLoading(true);
     setDisplayChart(true);
-    
-    console.log("valor de locationOccurrences", locationOccurrences)
-    
-   if (historial[key]) {
+        
+   if (historial[phrase]) {
       //La respuesta sale desde el historial:
       await new Promise(resolve => setTimeout(resolve, 2000));
-      setLocationOccurrences(historial[key].locations);
-      setMainCounter(historial[key].counter);
-      display_results(historial[key].number)
+      setLocationOccurrences(historial[phrase].locations);
+      setMainCounter(historial[phrase].counter);
+      display_results(historial[phrase].total)
     }
     else  {
       let newLocationOccurrences;
       let newMainCounter;  
       let origin= false;
-      let go_to_external = false;
-      for (let i = 0; i < externalList.length; i++) {
-        if (key === externalList[i]) {
-          go_to_external = true;
-          break;
-          }
-      }
-     if (go_to_external === true) {
+      
+      if (externalList.includes(phrase)) {
         try {
           //console.log("Búsqueda de servidor externo")
-          //await new Promise(resolve => setTimeout(resolve, 2000));
+          //await new Promise(resolve => setTimeout(resolve, 1000));
           //console.log("funciona la pausa?")
           newLocationOccurrences = true;
-          newMainCounter= externalHistorial[key].counter;
-          /* Si cambié el formato de los datos de historial a un array, aquí es donde debo reformatear: 
-          newMainCounter =
-              {
-              "2018":externalHistorial[phrase][0],
-              "2019": externalHistorial[phrase][1],
-              "2020":externalHistorial[phrase][2],
-              "2021":externalHistorial[phrase][3],
-              "2022":externalHistorial[phrase][4],
-              "2023":externalHistorial[phrase][5],
-              "2024":externalHistorial[phrase][6]
-              } */
+          newMainCounter= externalHistorial[phrase].counter;  
           origin = true;
         } catch (error) {
           console.error("Error obteniendo información de externo", error);
         }
      } else {
          try {
-          [newLocationOccurrences, newMainCounter] = await Finder(phrase, exact);
+          [newLocationOccurrences, newMainCounter] = await Finder(phrase);
           } catch (error) {
                 console.error('Finder regresa sin información', error);
                 alert("Falló la conexión con el servidor");
@@ -122,56 +100,57 @@ async function launchsearch(phrase, exact) {
       if (newMainCounter === undefined) newMainCounter= {};
       setLocationOccurrences(newLocationOccurrences);
       setMainCounter(newMainCounter);
-      const number = Object.values(newMainCounter).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+      const total = newMainCounter.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+     
       //Add information to the historial
       setHistorial(prevHistorial => ({
-          ...prevHistorial,[key]: {
+          ...prevHistorial,[phrase]: {
             locations: newLocationOccurrences,
             counter: newMainCounter,
-            number: number,
-            exact: exact,
+            total: total,
             origin: origin
           }
           }));
-      display_results(number);
+      display_results(total);
   }
   }
 
-const handleSearch = (phrase, exact) => {
-    let allow = false;
-    for (let i = 0; i < exepciones.length; i++) {
-      if (phrase === exepciones[i]) {
-        allow = true;
-        break;
-      }
+const handleSearch = (phrase) => {
+    phrase = phrase.trim()//.toLowerCase()
+
+    if (forbidden.includes(phrase)) {
+      alert("La búsqueda de esta palabra está restringida dado su gran número de repeticiones o porque no aporta información relevante");
     }
-    if (  (phrase.length > 3 || allow === true) &&
-          !(phrase.length === 4 && phrase.includes(" ")) &&
-          !((phrase.length === 5 && (phrase.split(" ").length - 1) === 2))
-          ){
+    else{
+ 
+    if (  exepciones.includes(phrase) ||
+          ( 
+            phrase.length>3 && 
+            !(phrase.length === 4 && phrase.includes(" "))   )
+       )
+        {
             setDisplayChart(false)
             setNumOfSearch(numOfSearch + 1); 
-            launchsearch(phrase, exact)
+            launchsearch(phrase)
           }
       else {
-      alert("Introduce al menos tres caracteres.\nEl buscador también bloquea la solicitud de algunos artículos o preposiciones como 'las', 'los' o 'del' etc.");
+      alert("Introduce al menos cuatro caracteres sin contar espacios.");
       document.getElementById("searchField").value = "";
       }
-  };
+    }
+};
 
   const handleHistorial = (event) => {
     setDisplayChart(false)
     setOptionHistorial("Historial");
-    const word = historial[event.target.value].exact?
-      event.target.value.substring(1, event.target.value.length - 1)
-        :
-      event.target.value;
+    const word = event.target.value;
     setPhraseToFind(word); //Revisar si no explota 
-    launchsearch(word, historial[event.target.value].exact);
+    launchsearch(word);
   };
 
 return (
-  <>
+  <>  
+
    {isFrecuent? <CompleteList handleSearch={handleSearch} origin={true} apagador={setIsFrecuent}/>:null      }
    {isGraphs?
       <Graphs setIsGraphs={setIsGraphs}/>
@@ -192,33 +171,24 @@ return (
               title="Introduce al menos tres caracteres"
             />
             <button className='searchButton'
-                onClick={() => handleSearch(inputRef.current.value, exactExpression)} disabled={isLoading || isGraphs} style={isLoading? {marginLeft:"3px", cursor:"not-allowed"} : {marginLeft:"3px" }}>
+                onClick={() => handleSearch(inputRef.current.value)} disabled={isLoading || isGraphs} style={isLoading? {marginLeft:"3px", cursor:"not-allowed"} : {marginLeft:"3px" }}>
                 Buscar
             </button>
           </div>
-            
-          <div style={{marginTop: '15px'}}>
-            <label>
-              <input type="checkbox"
-                     checked={exactExpression}
-                     onChange={() => setExactExpression(!exactExpression)} />
-            </label>
-            <label id="exactWordLabel" htmlFor="exactWord"> Palabra completa</label>
-          
-            <select id="historialDropdown"
-                    value={optionHistorial}
-                    onChange={handleHistorial}
-                    disabled={Object.keys(historial).length < 1 || isLoading || isGraphs}
+                    
+          <select id="historialDropdown"
+            value={optionHistorial}
+            onChange={handleHistorial}
+            disabled={Object.keys(historial).length < 1 || isLoading || isGraphs}
                     >
-              <option value="Historial" disabled>Historial</option>
-                {Object.keys(historial).map((propertyName) => (
-                  <option key={propertyName} value={propertyName}>{`${propertyName} (${historial[propertyName].number})`}</option>
-                ))}
-            </select>
-          </div>
+            <option value="Historial" disabled>Historial</option>
+              {Object.keys(historial).map((propertyName) => (
+              <option key={propertyName} value={propertyName}>{`${propertyName} (${historial[propertyName].total})`}</option>
+              ))}
+          </select>
 
           <div>
-           <div className='frecuent-graphs' style={{ display: 'inline-flex', paddingRight:'40px'}} onClick={() =>{if(!isLoading) {setIsFrecuent(true)}}}>Más buscado...</div>
+           <div className='frecuent-graphs' style={{ display: 'inline-flex', paddingRight:'40px'}} onClick={() =>{if(!isLoading) {setIsFrecuent(true)}}}>Frecuentes</div>
            <div className='frecuent-graphs' style={{ display: 'inline-flex'}} onClick={() => {if(!isLoading) {setIsGraphs(true); setIsFrecuent(false); setDisplayChart(false)}}}>Comparativos</div>
           </div>
         
@@ -251,7 +221,6 @@ return (
                 setDisplayPhrases={setDisplayPhrases}
                 setDisplayChart={setDisplayChart}
                 displayPhrases={displayPhrases}
-                exactExpression={exactExpression}
                 historial={historial}
                 setHistorial={setHistorial}
               />

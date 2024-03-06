@@ -10,18 +10,17 @@ function Printdata() {
 
   const handlePrintData = (format) => {
     const list_of_words = lineData.list_of_words;
-    const years = ["2018", "2019", "2020", "2021", "2022", "2023", "2024"];
 
-    let data = [];
-    data.push(["Término", ...years, "Total"]);
+    let data = [ [`El discurso presidencial`, `http://discursosamlo.vercel.app`] ];
+    data.push(["Término", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "Total"]);
     Object.keys(list_of_words).forEach((word) => {
       const counter = list_of_words[word].counter;
-      const total = years.reduce((acc, year) => acc + (counter[year] || 0), 0);
-      data.push([word, ...years.map((year) => counter[year] || 0), total]);
-    });
+      const total= counter.reduce((acumulador, numero) => acumulador + numero, 0);
+      data.push([word, ...counter, total]);
+      });
 
-    // Generar el archivo según el formato especificado
     let fileContent;
+
     if (format) {
       const wb = XLSX.utils.book_new();
       const ws = XLSX.utils.aoa_to_sheet(data);
@@ -40,7 +39,7 @@ function Printdata() {
     });
     saveAs(
       blob,
-      `Frecuencia de términos, Discurso Presidencial.${format ? "xlsx" : "csv"}`
+      `El discurso presidencial. Frecuencia de términos.${format ? "xlsx" : "csv"}`
     );
 
     alert(`Datos descargados en formato ${format ? "XLSX" : "CSV"}`);

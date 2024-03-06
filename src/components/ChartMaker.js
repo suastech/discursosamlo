@@ -31,22 +31,25 @@ ChartJS.register(
 
 const ChartMaker = (props) => {
 
-const {mainCounter, locationOccurrences, phraseToFind, displayPhrases, setDisplayPhrases, exactExpression,
+const {mainCounter, locationOccurrences, phraseToFind, displayPhrases, setDisplayPhrases,
       historial, setHistorial, setLocationOccurrences} = props;
 
   const [isWordChart, setIsWordChart] = useState(false);
   const [indexOrigin, setIndexOrigin] = useState(0);
   const colors = ["rgba(75,192,192)", "rgb(123, 139, 164)", "black", "rgb(56, 84, 200)", "rgb(108, 108, 108)"];
   const [resultsArray, setResultsArray] = useState([]);
+  const limit_phrases = 4000;
   
   const copyToClipboard = () => {
-    let textToCopy = `${phraseToFind}\nTotal:${total}\n${JSON.stringify(mainCounter)}\n`
+    let textToCopy = `Término: "${phraseToFind}"\nTotal: ${total}\n${mainCounter.map(
+      (year, index) => `${2018 + index}: ${year}`).join('\n')}\n\n`;
     resultsArray.forEach((value) => {
-        const mappedValue = lineData.list_of_words[value];
-        if (mappedValue) {
-          textToCopy += `${value}\nTotal: ${mappedValue.total}\n${JSON.stringify(mappedValue.counter)}\n\n`;
-        }
-    })
+      const mappedValue = lineData.list_of_words[value];
+      if (mappedValue) {
+        textToCopy += `Término: "${value}"\nTotal: ${mappedValue.total}\n${mappedValue.counter.map(
+          (year, index) => `${2018 + index}: ${year}`).join('\n')}\n\n`;
+      }})
+    textToCopy += `El discurso presidencial\nhttp://discursosamlo.vercel.app`
     navigator.clipboard.writeText(textToCopy.trim())
       .then(() => {
         alert('Informaión de la gráfica copiada al portapapeles');
@@ -57,7 +60,6 @@ const {mainCounter, locationOccurrences, phraseToFind, displayPhrases, setDispla
       }); 
    };
 
-
   const activatePhrases = () => {
     setDisplayPhrases(true)
     setTimeout(() => {
@@ -65,24 +67,21 @@ const {mainCounter, locationOccurrences, phraseToFind, displayPhrases, setDispla
     }, 0);
     }
 
-  const listOfValues = [];
-  for (const year in mainCounter) {
-    listOfValues.push(mainCounter[year]);
-  }
-  const total = listOfValues.reduce((total, valor) => total + valor, 0)
-
+  const total= mainCounter.reduce((acumulador, numero) => acumulador + numero, 0);
+  
   const data = {
     labels: ["2018", "2019", "2020", "2021", "2022", "2023", "2024"],
     datasets: [
       {
         label: phraseToFind,
-        data: listOfValues,
+        data: mainCounter,
         fill: false,
         borderColor: "rgba(75,192,192,1)",
         tension: 0.4,
       },
       ...resultsArray.map((element, index) => {
         const values = lineData.list_of_words[element] ? Object.values(lineData.list_of_words[element].counter) : [];
+        //Ajustar para que saque los valores de un array, no un objeto.
         return {
           label: element,
           data: values,
@@ -192,9 +191,10 @@ const {mainCounter, locationOccurrences, phraseToFind, displayPhrases, setDispla
         </div>
 
         <button id="see-phrases-button" onClick={activatePhrases}
-                disabled={displayPhrases === true || total === 0 || total>5000} //aprox 1.7MB
+                title={total>limit_phrases? "La solicitud de frases no está activa para términos con demasiadas ocurrencias." : "Ver frases"}
+                disabled={displayPhrases === true || total === 0 || total>limit_phrases} 
                 style={{
-                  cursor: displayPhrases || total === 0 || total > 5000 ? 'not-allowed' : 'pointer'}}
+                  cursor: displayPhrases || total === 0 || total > limit_phrases ? 'not-allowed' : 'pointer'}}
                 >
         Ver frases
         </button>
@@ -202,7 +202,7 @@ const {mainCounter, locationOccurrences, phraseToFind, displayPhrases, setDispla
       {displayPhrases? (
       <div className='phrase-displayer'>
        <PhraseDisplayer mainCounter={mainCounter} locationOccurrences={locationOccurrences} phraseToFind={phraseToFind}
-       exactExpression={exactExpression} setLocationOccurrences={setLocationOccurrences}
+       setLocationOccurrences={setLocationOccurrences}
        historial={historial} setHistorial={setHistorial}/>
       </div>
       ) : null}

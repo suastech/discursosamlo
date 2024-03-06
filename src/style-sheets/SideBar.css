@@ -1,6 +1,6 @@
 .sidebar {
     position: fixed;
-    top: 135px;
+    top: 150px;
     left: 6vw;
     transform: translateX(-50%);
     width: auto;
@@ -172,21 +172,6 @@
     z-index: 2;
 }
 
-#list-files ul {
-  padding: 0px;
-}
-
-#list-files li{
-  text-align: left;
-  font-weight: normal;
-  list-style-type: none;
-  white-space: nowrap;
-  padding: 3px 10px;
-  }
-
-#list-files a {
-  padding-right: 5px;
-}
 
 
 @media (max-width: 700px) {
@@ -230,17 +215,21 @@
     position: fixed;
     top: 45%;
     width: 300px;
-    font-size: 12px;
+    font-size: 15px;
   }
   #info-extra {
-    font-size: 13px;
+    font-size: 14px;
   }
+
   #infoSpecial{
-    width: 80vw;
-    top: 30%
+    width: 90vw;
+    top: 35%
   }
-  #list-files{
-    width: 80vw;
-    height: 500px;
-    top: 31%}
+  #infoSpecial ul {
+    padding-left: 15px;
+  }
+  #infoSpecial il {
+    margin-left: 0px;
+  }
+
 }

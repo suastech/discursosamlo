@@ -4,17 +4,27 @@ import MarkText from "./MarkText.js";
 import Download from "./Download.js";
 import axios from 'axios';
 
-const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind, exactExpression, historial, setHistorial, setLocationOccurrences}) => {
+const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind, historial, setHistorial, setLocationOccurrences}) => {
   const phrasesPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const inputRef = useRef(null);
   const [phrasesToShow, setPhrasesToShow] = useState([]);
   const [isDownloading, setIsDownloading] = useState(false);
   const [finishedDownload, setFinishedDownload] = useState(false);
-  let pagesNeeded = Math.ceil(historial[phraseToFind].number / phrasesPerPage);
+  let pagesNeeded = Math.ceil(historial[phraseToFind].total / phrasesPerPage);
   const [isLoading, setIsLoading] = useState(true);
 
-  const locationsExist= false;
+  const locationsExist= true;
+
+  const buildlink = (phrase) => {
+    phrase = phrase.replace(/[áÁ]/g, '%C3%A1')
+                       .replace(/[éÉ]/g, '%C3%A9')
+                       .replace(/[íÍ]/g, '%C3%AD')
+                       .replace(/[óÓ]/g, '%C3%B3')
+                       .replace(/[úÚ]/g, '%C3%BA');
+    var enlace = `https://discursosamlo.s3.us-east-2.amazonaws.com/historial/locations/${phrase}.json`;
+    return enlace;
+  }
 
   const handlePrevNext = (num) => {
     setIsLoading(true);
@@ -95,7 +105,8 @@ const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind, exactE
        let temporary_locations = null;
        if (historial[phraseToFind].locations === true) {
         try {
-        const response = await axios.get(`https://discursosamlo.s3.us-east-2.amazonaws.com/historial/locations/${phraseToFind}.json`) 
+        const fixed_link = buildlink(phraseToFind);
+        const response = await axios.get(fixed_link) 
         const newLocations = response.data
         setHistorial(prevHistorial => ({
             ...prevHistorial,
@@ -109,14 +120,14 @@ const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind, exactE
         console.error('Error al obtener los datos del servidor', error)
       }
       }
-        try {
-          const result = await getThePhrases(temporary_locations);
-          setPhrasesToShow(result !== undefined ? result : []);
-          setIsLoading(false);
-        } catch (error) {
-          console.error('Error al obtener frases. Por favor actualice la página', error);
-          setIsLoading(false);
-        }
+      try {
+        const result = await getThePhrases(temporary_locations);
+        setPhrasesToShow(result);
+        setIsLoading(false);
+      } catch (error) {
+        alert('Error al obtener frases. Por favor actualice la página', error);
+        setIsLoading(false);
+      }
     }
   }
   fetchData();
@@ -188,7 +199,7 @@ const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind, exactE
                 {element.name}
               </p>
             </div>
-              <MarkText element={element.text} website={element.website} phraseToFind={phraseToFind} exactExpression={exactExpression}/>
+              <MarkText element={element.text} website={element.website} phraseToFind={phraseToFind}/>
           </div>
           ))
           }
