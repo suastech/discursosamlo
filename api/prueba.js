@@ -4,7 +4,7 @@ dotenv.config({ path: '../.env' });
 
 const { Pool } = pkg;
 async function prueba(req) {
-    console.log("llega llamada con:",req.query.phrase)
+    console.log("llega llamada con...")
    
     const pool = new Pool({
       user: process.env.DB_USER,
