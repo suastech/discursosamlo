@@ -22,9 +22,8 @@
     "xlsx": "^0.18.5"
   },
   "scripts": {
-    "postinstall": "prisma generate",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "prisma generate && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
