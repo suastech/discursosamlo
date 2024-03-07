@@ -1,18 +1,16 @@
 import { PrismaClient } from '@prisma/client';
-
 const prisma = new PrismaClient();
 
-async function server_function(phrase) {
-  console.log("llegó la llamada a serverfunction con", phrase)
+async function server_function(req,res) {
+  console.log("llegó la llamada a serverfunction con", req.query.phrase)
   
   try {
-
   const allUsers = await prisma.newfile.findMany()
   for (let archivo of allUsers) {
     console.log(archivo.id, archivo.title)
   }
 
-  return allUsers
+  res.json(allUsers)
 
   /*
   const phrase = req.query.phrase;
@@ -44,13 +42,12 @@ async function server_function(phrase) {
     res.json([location_occurrences, main_counter]); 
     */
 
-    } catch (error) {
-      console.error('No se pudo acceder a la carpeta:', error);
-    } finally {
-      await prisma.$disconnect();
-    }
-
-
+  } catch (error) {
+    console.error('No se pudo acceder a la carpeta:', error);
+    res.status(500).json({ error: 'Error al consultar la base de datos' });
+  } finally {
+    await prisma.$disconnect();
+  }
 }
 
 export default server_function;

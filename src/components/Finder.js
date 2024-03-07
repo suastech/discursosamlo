@@ -1,19 +1,18 @@
-//import axios from 'axios';
-import server_function from '../api/server_function.js'
+import axios from 'axios';
 
 async function Finder(phrase) {
   try {
-    const response = await server_function(phrase)
-    /*const response = await axios.get('http://localhost:3000/api/newsearch', {
+    const response = await axios.get('https://discursosamlo.vercel.app/api/server_function', {
       params: {
         phrase: phrase
       }
-    });*/
+    });
     console.log(response.data);
     return response.data;
   } catch (error) {
-    console.error(error);
-    return [ [[1,1]], [3,4,5,6,7,8,9] ];
+    console.error('Error al invocar la función:', error);
+    // Puedes manejar errores específicos aquí
+    throw error;
   }
 }
 
