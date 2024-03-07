@@ -1,7 +1,7 @@
 {
   "functions": {
-    "api": {
-      "source": "src/api/**/*.js"
+    "api/server_function": {
+      "handler": "src/api/server_function.js"
     }
   }
 }
