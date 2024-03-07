@@ -2,10 +2,10 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-async function newsearch(req, res) {
-  console.log("llegó la llamada a newsearch con", req.query.phrase)
+async function server_function(phrase) {
+  console.log("llegó la llamada a serverfunction con", phrase)
   
-try {
+  try {
 
   const allUsers = await prisma.newfile.findMany()
   for (let archivo of allUsers) {
@@ -44,11 +44,13 @@ try {
     res.json([location_occurrences, main_counter]); 
     */
 
-  } catch (error) {
-    console.error('No se pudo acceder a la carpeta:', error);
-  } finally {
-    await prisma.$disconnect();
-  }
+    } catch (error) {
+      console.error('No se pudo acceder a la carpeta:', error);
+    } finally {
+      await prisma.$disconnect();
+    }
+
+
 }
 
-export default newsearch;
+export default server_function;
