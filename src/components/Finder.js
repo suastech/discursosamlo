@@ -1,5 +1,5 @@
 //import axios from 'axios';
-import server_function from '../database obsoleto/server_function.js';
+import server_function from '../api/server_function.js'
 
 async function Finder(phrase) {
   try {
