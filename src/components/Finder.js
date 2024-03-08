@@ -2,7 +2,7 @@ import axios from 'axios';
 
 async function Finder(phrase) {
   try {
-    const response = await axios.get('https://discursosamlo.vercel.app/api/prueba', {
+    const response = await axios.get('https://discursosamlo.vercel.app/api/serverfinder', {
       params: {
         phrase: phrase
       }
