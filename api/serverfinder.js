@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+/*import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function serverfinder(req,res) {
@@ -40,7 +40,7 @@ async function serverfinder(req,res) {
 
     main_counter = Object.values(main_counter); // Así convierto el objeto en un array
     res.json([location_occurrences, main_counter]); 
-    */
+    
 
   } catch (error) {
     console.error('No se pudo acceder a la carpeta:', error);
@@ -51,3 +51,5 @@ async function serverfinder(req,res) {
 }
 
 export default serverfinder;
+
+*/

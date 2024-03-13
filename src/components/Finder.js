@@ -2,6 +2,7 @@ import axios from 'axios';
 
 async function Finder(phrase) {
   try {
+    //const response = await axios.get(`/search?phrase=${phrase}&exactExpression=${exactExpression}`);
     const response = await axios.get('https://discursosamlo.vercel.app/api/serverfinder', {
       params: {
         phrase: phrase

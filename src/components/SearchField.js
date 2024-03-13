@@ -7,9 +7,10 @@ import WaitingBoxes from './WaitingBoxes.js';
 import CompleteList from './CompleteList.js';
 import close from '../imagenes/closebutton.png';
 import forbidden from '../forbidden.js';
+import main_historial from '../main_historial.js';
 
 const SearchField = (props) => {
-  const {displayChart, setDisplayChart, numOfSearch, setNumOfSearch, setIsInfo, setIsSupport, setIsExtra, externalHistorial} = props;
+  const {displayChart, setDisplayChart, numOfSearch, setNumOfSearch, setIsInfo, setIsSupport, setIsExtra} = props;
   const [phraseToFind, setPhraseToFind] = useState("");
   const [mainCounter, setMainCounter] = useState({});
   const [locationOccurrences, setLocationOccurrences] = useState([]);
@@ -24,7 +25,7 @@ const SearchField = (props) => {
 
   const exepciones = ["fox", "ine", "pri", "pan"];
 
-  const externalList = Object.keys(externalHistorial);
+  const externalList = Object.keys(main_historial.list_of_words);
 
   const handleInput = (event) => {
     const inputValue = event.target.value;
@@ -81,7 +82,7 @@ async function launchsearch(phrase) {
           //await new Promise(resolve => setTimeout(resolve, 1000));
           //console.log("funciona la pausa?")
           newLocationOccurrences = true;
-          newMainCounter= externalHistorial[phrase].counter;  
+          newMainCounter= main_historial.list_of_words[phrase].counter;  
           origin = true;
         } catch (error) {
           console.error("Error obteniendo información de externo", error);
@@ -116,8 +117,7 @@ async function launchsearch(phrase) {
   }
 
 const handleSearch = (phrase) => {
-    phrase = phrase.trim()//.toLowerCase()
-
+    phrase = phrase.trim().toLowerCase()
     if (forbidden.includes(phrase)) {
       alert("La búsqueda de esta palabra está restringida dado su gran número de repeticiones o porque no aporta información relevante");
     }
@@ -151,12 +151,15 @@ const handleSearch = (phrase) => {
 return (
   <>  
 
-   {isFrecuent? <CompleteList handleSearch={handleSearch} origin={true} apagador={setIsFrecuent}/>:null      }
+   {isFrecuent? <CompleteList handleSearch={handleSearch} origin={true} apagador={setIsFrecuent}/>:null}
+   
    {isGraphs?
       <Graphs setIsGraphs={setIsGraphs}/>
       :
       <> 
       <div className='search'>
+          
+          {/*
           <div>
             <input
               className='input-styles'
@@ -168,7 +171,7 @@ return (
               onKeyDown={handleKeyPress}
               onInput={handleInput}
               disabled={isLoading || isGraphs}
-              title="Introduce al menos tres caracteres"
+              title='Búsquedas temporalmente deshabilitadas. Puedes elegir un término de la lista de Frecuentes'
             />
             <button className='searchButton'
                 onClick={() => handleSearch(inputRef.current.value)} disabled={isLoading || isGraphs} style={isLoading? {marginLeft:"3px", cursor:"not-allowed"} : {marginLeft:"3px" }}>
@@ -180,12 +183,13 @@ return (
             value={optionHistorial}
             onChange={handleHistorial}
             disabled={Object.keys(historial).length < 1 || isLoading || isGraphs}
-                    >
+          >
             <option value="Historial" disabled>Historial</option>
               {Object.keys(historial).map((propertyName) => (
               <option key={propertyName} value={propertyName}>{`${propertyName} (${historial[propertyName].total})`}</option>
               ))}
           </select>
+          */}
 
           <div>
            <div className='frecuent-graphs' style={{ display: 'inline-flex', paddingRight:'40px'}} onClick={() =>{if(!isLoading) {setIsFrecuent(true)}}}>Frecuentes</div>

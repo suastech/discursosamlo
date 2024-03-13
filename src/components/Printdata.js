@@ -1,6 +1,6 @@
 import "../style-sheets/Printdata.css";
 import descargar from '../imagenes/descargar.jpg';
-import lineData from "../lineData.js";
+import main_historial from "../main_historial.js";
 import { saveAs } from "file-saver";
 import * as XLSX from "xlsx";
 import { useState } from "react";
@@ -9,15 +9,17 @@ function Printdata() {
   const [showIcons, setShowIcons] = useState(false);
 
   const handlePrintData = (format) => {
-    const list_of_words = lineData.list_of_words;
+    const list_of_words = main_historial.list_of_words;
 
-    let data = [ [`El discurso presidencial`, `http://discursosamlo.vercel.app`] ];
+    let data = [ [`El discurso presidencial`] ];
     data.push(["Término", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "Total"]);
     Object.keys(list_of_words).forEach((word) => {
       const counter = list_of_words[word].counter;
       const total= counter.reduce((acumulador, numero) => acumulador + numero, 0);
       data.push([word, ...counter, total]);
       });
+    data.push([`Con base en la transcripción de los discursos presidenciales disponibles en presodencia.gob.mx. Discursos entre el 01/12/18 y el ${main_historial.last_update}. Para más información sobre los discursos consultados y las funciones de búsqueda puedes consultar: Programación y diseño: Jesús Suaste Cherizola`])
+    data.push([`http://discursosamlo.vercel.app`])
 
     let fileContent;
 
@@ -46,7 +48,7 @@ function Printdata() {
   };
 
   return (
-    <div id='printspace' title='Descargar base de búsuedas frecuentes' onClick={()=> setShowIcons(true)} onMouseEnter={() => setShowIcons(true)} onMouseLeave={() => setShowIcons(false)} >
+    <div id='printspace' title='Descargar base de búsquedas frecuentes' onClick={()=> setShowIcons(true)} onMouseEnter={() => setShowIcons(true)} onMouseLeave={() => setShowIcons(false)} >
       <img id='dataimage' src={descargar} alt='Descargar'/>
       {showIcons && (
         <>

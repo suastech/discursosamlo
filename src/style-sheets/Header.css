@@ -6,13 +6,33 @@ header {
     font-family: 'Segoe UI';
     padding-top: 10px;
   }
+
 header img {
+  cursor: pointer;
   height: 90px;
   margin-left: 65px;
-}
-
-
-  @media screen and (max-width: 780px) {
+  &:active {
+    animation: shake .1s ease-in-out 3;
+    transform: scale(0.95);
+    }
     
   }
-
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); } /* Estado inicial y final */
+    25%, 75% { transform: translateX(-5px) rotate(5deg); } /* Movimiento hacia la izquierda */
+    50% { transform: translateX(5px) rotate(-5deg); } /* Movimiento hacia la derecha */
+  }
+    
+#text-image  {
+ position: absolute;
+ user-select: none;
+ margin-right: 90px;
+ top: 36px;
+ transform: rotate(34deg);
+ font-size: 6px;
+ width: 80px;
+ height: 28px;
+ overflow: hidden;
+ line-height: 0.8;
+ cursor: none;
+}

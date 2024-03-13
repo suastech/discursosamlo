@@ -7,13 +7,13 @@
 }
 
 #dataimage {
-    height: 30px;
+    height: 25px;
     border-radius: 5px;
 } 
 
 .format-data {
     width: 50px;
-    height: 30px;
+    height: 25px;
     margin-left: 5px;
     border-radius: 5px;
     cursor: pointer;
@@ -29,6 +29,6 @@
 
 @media (max-width: 700px) {
     #dataimage {
-        height: 30px;
+        height: 25px;
     }
   }

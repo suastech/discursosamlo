@@ -88,10 +88,11 @@
   display: flex;
   font-size: 15px;
   text-align: end;
+  margin-top: 20px;
 }
 
 #copy {
-  height: 30px;
+  height: 25px;
   margin-right: 5px;
   background-color: none;
   cursor: pointer;

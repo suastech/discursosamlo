@@ -1,13 +1,14 @@
 import '../style-sheets/Footer.css'
+import main_historial from '../main_historial.js'
 
 function Footer () {
-  const [update,quantity] = ["17/02/2024", "2,134"]
+
   return (
     <footer>
       <div id="footerinfo">
-        Última atualización: {update}
+        Última atualización: {main_historial.last_update}
         <br/>
-        Archivos indexados: {quantity}
+        Archivos indexados: {main_historial.quantity.toLocaleString('es-MX')}
         <br/>
         Fuentes: <a href="http:/presidencia.gob.mx/" target="_blank" rel="noreferrer">presidencia.gob.mx</a> y <a href="http:/lopezobrador.org.mx/" target="_blank" rel="noreferrer">lopezobrador.org.mx</a>         
       </div>

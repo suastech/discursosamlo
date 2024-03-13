@@ -7,7 +7,8 @@
 /servidor
 # testing
 /coverage
-
+/archivos
+/api
 # production
 /build
 

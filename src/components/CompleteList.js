@@ -1,12 +1,11 @@
 import '../style-sheets/CompleteList.css'
 import { useState } from 'react';
-import lineData from '../lineData.js';
 import close from '../imagenes/closebutton.png';
-
+import main_historial from '../main_historial.js';
 
 function CompleteList (props) {
   const {changeOrigin, arrayOfWords, setArrayOfWords, handleSearch, origin, apagador} = props 
-  const palabras = Object.keys(lineData.list_of_words)
+  const palabras = Object.keys(main_historial.list_of_words)
   const [filtro, setFiltro] = useState('');
   
   const handleClose = () => {

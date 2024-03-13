@@ -1,5 +1,5 @@
 const forbidden = [
-    "para", "porque", "pero", "como", "también", "este", "presidente", "vamos", "todo",
+    "amlo", "para", "porque", "pero", "como", "también", "este", "presidente", "vamos", "todo",
     "todos", "entonces", "esta", "tiene", "están", "esto", "gobierno", "estamos", "tenemos", "estado",
     "ahora", "sobre", "país", "nacional", "millones", "pues", "mucho", "desde", "cuando",
     "pesos", "estados", "señor", "nada", "estos", "bueno", "tienen", "gracias", "caso",

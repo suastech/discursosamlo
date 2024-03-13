@@ -5,8 +5,8 @@ import plus from '../imagenes/plus.png';
 import minus from '../imagenes/minus.png';
 import refresh from '../imagenes/refresh.png';
 import CompleteList from './CompleteList.js';
-import lineData from '../lineData.js';
 import copy from '../imagenes/copy.png'
+import main_historial from '../main_historial.js';
 
 import {
   Chart as ChartJS,
@@ -36,15 +36,18 @@ const {mainCounter, locationOccurrences, phraseToFind, displayPhrases, setDispla
 
   const [isWordChart, setIsWordChart] = useState(false);
   const [indexOrigin, setIndexOrigin] = useState(0);
-  const colors = ["rgba(75,192,192)", "rgb(123, 139, 164)", "black", "rgb(56, 84, 200)", "rgb(108, 108, 108)"];
-  const [resultsArray, setResultsArray] = useState([]);
+  const colors = [
+    "rgba(75, 192, 192)", "rgb(123, 139, 164)", "black", "rgb(56, 84, 200)", "rgb(108, 108, 108)",
+    "rgb(255, 99, 132)", "rgb(255, 205, 86)", "rgb(54, 162, 235)", "rgb(255, 159, 64)", "rgb(144, 238, 144)"
+];  const [resultsArray, setResultsArray] = useState([]);
+  const limit_number_words = 10;
   const limit_phrases = 4000;
   
   const copyToClipboard = () => {
     let textToCopy = `Término: "${phraseToFind}"\nTotal: ${total}\n${mainCounter.map(
       (year, index) => `${2018 + index}: ${year}`).join('\n')}\n\n`;
     resultsArray.forEach((value) => {
-      const mappedValue = lineData.list_of_words[value];
+      const mappedValue = main_historial.list_of_words[value];
       if (mappedValue) {
         textToCopy += `Término: "${value}"\nTotal: ${mappedValue.total}\n${mappedValue.counter.map(
           (year, index) => `${2018 + index}: ${year}`).join('\n')}\n\n`;
@@ -80,7 +83,7 @@ const {mainCounter, locationOccurrences, phraseToFind, displayPhrases, setDispla
         tension: 0.4,
       },
       ...resultsArray.map((element, index) => {
-        const values = lineData.list_of_words[element] ? Object.values(lineData.list_of_words[element].counter) : [];
+        const values = main_historial.list_of_words[element] ? Object.values(main_historial.list_of_words[element].counter) : [];
         //Ajustar para que saque los valores de un array, no un objeto.
         return {
           label: element,
@@ -128,7 +131,7 @@ const {mainCounter, locationOccurrences, phraseToFind, displayPhrases, setDispla
         <div style={{display:'flex', marginTop:'15px', justifyContent:'center'}}>
           <p style={{fontSize:'16px', marginRight:'10px', color: colors[0] }}>{phraseToFind} {total}</p>  
           {resultsArray.map((value, i) => (
-            <p key={i} style={{fontSize:'16px', marginRight:'10px', color: colors[i+1] }}> {value} {value !== ''? lineData.list_of_words[value].total :''} </p>
+            <p key={i} style={{fontSize:'16px', marginRight:'10px', color: colors[i+1] }}> {value} {value !== ''? main_historial.list_of_words[value].total :''} </p>
             ))
           }
         </div>
@@ -147,7 +150,7 @@ const {mainCounter, locationOccurrences, phraseToFind, displayPhrases, setDispla
                     opacity: resultsArray.length<5? '1':'0.6'
                 }}
           onClick={() => {
-              if (resultsArray.length<5) {
+              if (resultsArray.length<limit_number_words) {
               setIndexOrigin(resultsArray.length)
               const updatedarray = [...resultsArray];
               updatedarray.push('');
@@ -190,14 +193,15 @@ const {mainCounter, locationOccurrences, phraseToFind, displayPhrases, setDispla
 
         </div>
 
-        <button id="see-phrases-button" onClick={activatePhrases}
+        {/*<button id="see-phrases-button" onClick={activatePhrases}
                 title={total>limit_phrases? "La solicitud de frases no está activa para términos con demasiadas ocurrencias." : "Ver frases"}
                 disabled={displayPhrases === true || total === 0 || total>limit_phrases} 
                 style={{
                   cursor: displayPhrases || total === 0 || total > limit_phrases ? 'not-allowed' : 'pointer'}}
                 >
         Ver frases
-        </button>
+        </button>*/}
+
       </div>
       {displayPhrases? (
       <div className='phrase-displayer'>
