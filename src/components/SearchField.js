@@ -165,7 +165,7 @@ return (
               className='input-styles'
               type="text"
               id="searchField"
-              placeholder="Búsqueda"
+              placeholder="Búsqueda..."
               maxLength="30"
               ref={inputRef}
               onKeyDown={handleKeyPress}
