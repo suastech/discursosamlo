@@ -174,7 +174,7 @@ return (
               title='Búsquedas temporalmente deshabilitadas. Puedes elegir un término de la lista de Frecuentes'
             />
             <button className='searchButton'
-                onClick={() => handleSearch(inputRef.current.value)} disabled={isLoading || isGraphs} style={isLoading? {marginLeft:"3px", cursor:"not-allowed"} : {marginLeft:"3px" }}>
+                onClick={() => handleSearch(inputRef.current.value)} disabled={isLoading} style={isLoading? {cursor:"not-allowed"} : {}}>
                 Buscar
             </button>
           </div>
@@ -189,6 +189,7 @@ return (
               <option key={propertyName} value={propertyName}>{`${propertyName} (${historial[propertyName].total})`}</option>
               ))}
           </select>
+         
 
           <div>
            <div className='frecuent-graphs' style={{ display: 'inline-flex', paddingRight:'40px'}} onClick={() =>{if(!isLoading) {setIsFrecuent(true)}}}>Frecuentes</div>
