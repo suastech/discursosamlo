@@ -159,7 +159,7 @@ return (
       <> 
       <div className='search'>
           
-          {/*
+         
           <div>
             <input
               className='input-styles'
@@ -189,7 +189,6 @@ return (
               <option key={propertyName} value={propertyName}>{`${propertyName} (${historial[propertyName].total})`}</option>
               ))}
           </select>
-          */}
 
           <div>
            <div className='frecuent-graphs' style={{ display: 'inline-flex', paddingRight:'40px'}} onClick={() =>{if(!isLoading) {setIsFrecuent(true)}}}>Frecuentes</div>

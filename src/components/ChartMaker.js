@@ -41,7 +41,7 @@ const {mainCounter, locationOccurrences, phraseToFind, displayPhrases, setDispla
     "rgb(255, 99, 132)", "rgb(255, 205, 86)", "rgb(54, 162, 235)", "rgb(255, 159, 64)", "rgb(144, 238, 144)"
 ];  const [resultsArray, setResultsArray] = useState([]);
   const limit_number_words = 10;
-  const limit_phrases = 4000;
+  const limit_phrases = 600;
   
   const copyToClipboard = () => {
     let textToCopy = `Término: "${phraseToFind}"\nTotal: ${total}\n${mainCounter.map(
@@ -193,14 +193,14 @@ const {mainCounter, locationOccurrences, phraseToFind, displayPhrases, setDispla
 
         </div>
 
-        {/*<button id="see-phrases-button" onClick={activatePhrases}
+        <button id="see-phrases-button" onClick={activatePhrases}
                 title={total>limit_phrases? "La solicitud de frases no está activa para términos con demasiadas ocurrencias." : "Ver frases"}
                 disabled={displayPhrases === true || total === 0 || total>limit_phrases} 
                 style={{
                   cursor: displayPhrases || total === 0 || total > limit_phrases ? 'not-allowed' : 'pointer'}}
                 >
         Ver frases
-        </button>*/}
+        </button>
 
       </div>
       {displayPhrases? (
