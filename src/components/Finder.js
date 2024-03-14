@@ -2,12 +2,12 @@ import axios from 'axios';
 
 async function Finder(phrase) {
   try {
-    //const response = await axios.get(`/search?phrase=${phrase}&exactExpression=${exactExpression}`);
-    const response = await axios.get('https://discursosamlo.vercel.app/api/serverfinder', {
+    const response = await axios.get(`http://3.144.45.205/search?phrase=${phrase}`);
+    /*const response = await axios.get('https://discursosamlo.vercel.app/api/serverfinder', {
       params: {
         phrase: phrase
       }
-    });
+    });*/
     console.log(response.data);
     return response.data;
   } catch (error) {
