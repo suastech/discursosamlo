@@ -20,7 +20,6 @@ async function Finder(phrase) {
         console.log('Datos de ubicaciones:', locationOccurrences);
         console.log('Contador principal:', mainCounter);
         return [locationOccurrences, mainCounter]
-
     }
     else {console.error('Error al llamar a la API:', response.status); }
     } catch (error) { console.error('Error en la solicitud:', error);}

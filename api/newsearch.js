@@ -1,5 +1,5 @@
-//import { PrismaClient } from "@prisma/client";
-//const prisma = new PrismaClient();
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
 async function newsearch(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -8,8 +8,7 @@ async function newsearch(req, res) {
 
   const { phrase } = req.query;
   console.log("llega al servidor con:", phrase);
-  console.log("Variable de entorno:", DATABASE_URL);
-  /*
+  
   let files;
   let location_occurrences = [];
   let main_counter = {2018: 0, 2019: 0, 2020: 0, 2021: 0, 2022: 0, 2023: 0, 2024: 0};
@@ -39,9 +38,10 @@ async function newsearch(req, res) {
     }
   }
   main_counter = Object.values(main_counter);
-  */
-  let location_occurrences = [[1,2],[3,4]]
-  let main_counter = [1,2,3,4,5,6,7]
+  
+
+//  let location_occurrences = [[1,2],[3,4]]
+// let main_counter = [1,2,3,4,5,6,7]
   res.json([location_occurrences, main_counter]);
 }
 
