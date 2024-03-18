@@ -14,7 +14,7 @@
 
 /database
 /prisma
-
+serverfinder.js
 # misc
 .env
 .DS_Store
