@@ -46,7 +46,7 @@ const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind, histor
             body: JSON.stringify(body)
         });
         if (response.ok) {
-           console.log("lo que devuelve getThePhrases 49: ", response.json)
+           console.log("lo que devuelve getThePhrases en 49: ", response)
             return await response.json();
         } else {
             console.error('Error al llamar a la API:', response.status);
@@ -75,7 +75,6 @@ const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind, histor
     try {
       const result = await getThePhrases(locationsToGo);
       console.log("Lo que recibe fetchdata de getThePhrases:", result)
-      console.log(result[0])
       if (locationOccurrences === true) {
         setLocationOccurrences(result[1]);
         setHistorial(prevHistorial => ({
@@ -85,7 +84,7 @@ const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind, histor
           }));
       }
       
-      setPhrasesToShow(result[0]);
+      setPhrasesToShow(result);
       console.log("Valor de phrasestoShow tras aplicar el set", phrasesToShow)
 
       setIsLoading(false);
