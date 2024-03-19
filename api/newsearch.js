@@ -7,7 +7,6 @@ async function newsearch(req, res) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   const { phrase } = req.query;
-  console.log("llega al servidor con:", phrase);
   
   let files;
   let location_occurrences = [];
