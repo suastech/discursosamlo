@@ -1,8 +1,7 @@
 import { saveAs } from 'file-saver';
-import axios from 'axios';
 
 async function Download(locationOccurrences, mainCounter, phraseToFind) {
-  const projectName = "El discurso presidencial";
+  const projectName = "Discursos AMLO";
 
   try {
       const body = {
@@ -17,7 +16,7 @@ async function Download(locationOccurrences, mainCounter, phraseToFind) {
       });
 
       if (response.ok) {
-      const arrayOfPhrases = response.json();
+      const arrayOfPhrases = await response.json();
       if (arrayOfPhrases.length>0) {     
       let yearSummary = `${mainCounter.map((year, index) => `${2018 + index}: ${year}`
       ).join('\n')}\n\n`;
@@ -25,7 +24,7 @@ async function Download(locationOccurrences, mainCounter, phraseToFind) {
       // Generate file content
       const header = `Repeticiones del término: ${phraseToFind}\nTotal:${locationOccurrences.length}\n\nDesglose anual:\n${yearSummary}\n\n`;
       const quotes = arrayOfPhrases.map(element => `#${element.id}. ${element.date} ${element.name}.\n...${element.text}...`).join('\n\n');
-      const ending = `\n\n\n**********\nEl discurso presidencial\ndiscursosamlo.vercel.app\nCon información pública de presidencia.gob.mx y lopezobrador.org.mx\nProgramación y diseño : Jesús Suaste Cherizola.`
+      const ending = `\n\n\n**********\nDiscursos AMLO\ndiscursosamlo.vercel.app\nCon información pública de presidencia.gob.mx y lopezobrador.org.mx\nProgramación y diseño : Jesús Suaste Cherizola.`
       const fullContent = `${header}${quotes}${ending}`
 
       // Download

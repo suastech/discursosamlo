@@ -7,7 +7,6 @@ async function builder(req, res) {
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     let { locations, phrase, download } = req.body;   
-    console.log("llega con:", locations, phrase, download)
 //Build
 async function buildPhrases(locationsToGo, download) {
     let listOfQuotes = [];

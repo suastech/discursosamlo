@@ -83,10 +83,7 @@ const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind, histor
           }
           }));
       }
-      
       setPhrasesToShow(result);
-      console.log("Valor de phrasestoShow tras aplicar el set", phrasesToShow)
-
       setIsLoading(false);
       } catch (error) {
         alert('Error al obtener frases. Por favor actualice la página', error);
