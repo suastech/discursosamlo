@@ -11,7 +11,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = DATABASE_URL
+  url      = "postgresql://postgres:Y7Y2RocgK9Wjbc!Qvm55Kd34PplffWE@baseamlo.cbkkqqmgi4zg.us-east-2.rds.amazonaws.com/baseamlo"
 }
 
 model newfile {
