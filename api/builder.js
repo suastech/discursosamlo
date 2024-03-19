@@ -16,7 +16,6 @@ if (req.method !== 'POST') {
 
 let locations, phrase, download;
 try {
-    console.log("llega llamada correctamente:", req.body)
     ({ locations, phrase, download } = req.body);   
 } catch (error) {
     console.error('Error:', error);
