@@ -1,23 +1,23 @@
 import { saveAs } from 'file-saver';
 import axios from 'axios';
 
-async function Download(locationOccurrences, mainCounter, origin, phraseToFind) {
+async function Download(locationOccurrences, mainCounter, phraseToFind) {
   const projectName = "El discurso presidencial";
-  if (origin === true) {
-    const response = await axios.get(`https://discursosamlo.s3.us-east-2.amazonaws.com/historial/frases/Informe+del+t%C3%A9rmino+${phraseToFind}%2C+Discursos+presidenciales.txt`, { responseType: 'blob' });
-    const blob = new Blob([response.data], { type: 'text/plain;charset=utf-8' });
-    saveAs(blob, `Informe del término ${phraseToFind}, ${projectName}.txt`);
-  }
-  else {
-    try {
-      const response = await axios.get(`/build`, {
-        params: {
-          locations: JSON.stringify(locationOccurrences),
-          download: true
-        }
-      }
-      );
-      const arrayOfPhrases = response.data
+
+  try {
+      const body = {
+          locations: locationOccurrences,
+          phrase: phraseToFind,
+          download: false,
+      };
+      const response = await fetch('https://discursosamlo.vercel.app/api/builder', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(body)
+      });
+
+      if (response.ok) {
+      const arrayOfPhrases = response.json();
       if (arrayOfPhrases.length>0) {     
       let yearSummary = `${mainCounter.map((year, index) => `${2018 + index}: ${year}`
       ).join('\n')}\n\n`;
@@ -32,10 +32,13 @@ async function Download(locationOccurrences, mainCounter, origin, phraseToFind) 
       const blob = new Blob([fullContent], { type: 'text/plain;charset=utf-8' });
       saveAs(blob, `Informe del término ${phraseToFind}, ${projectName}.txt`);
       }
+      }
     } catch (error) {
-      alert('Falló la conexión al servidor. Por favor intenta nuevamente:', error);
-    } }
+      alert('Falló la conexión al servidor. Por favor intenta más tarde:', error);
+    }
+  
+  }
 
-}
+
 
 export default Download;

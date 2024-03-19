@@ -34,14 +34,11 @@ async function newsearch(req, res) {
     let match;
     while ((match = expression.exec(file.content.toLowerCase())) !== null) {
       main_counter[file.title.substring(0, 4)] += 1;
-      location_occurrences.push([file.id, match.index]);
+      location_occurrences.unshift([file.id, match.index]);
     }
   }
   main_counter = Object.values(main_counter);
-  
 
-//  let location_occurrences = [[1,2],[3,4]]
-// let main_counter = [1,2,3,4,5,6,7]
   res.json([location_occurrences, main_counter]);
 }
 

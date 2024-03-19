@@ -2,7 +2,6 @@ import "../style-sheets/PhraseDisplayer.css";
 import { useState, useRef, useEffect } from "react";
 import MarkText from "./MarkText.js";
 import Download from "./Download.js";
-import axios from 'axios';
 
 const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind, historial, setHistorial, setLocationOccurrences}) => {
   const phrasesPerPage = 10;
@@ -11,20 +10,8 @@ const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind, histor
   const [phrasesToShow, setPhrasesToShow] = useState([]);
   const [isDownloading, setIsDownloading] = useState(false);
   const [finishedDownload, setFinishedDownload] = useState(false);
-  let pagesNeeded = Math.ceil(historial[phraseToFind].total / phrasesPerPage);
+  let pagesNeeded = Math.ceil(mainCounter.reduce((acumulador, numero) => acumulador + numero, 0)/ phrasesPerPage);
   const [isLoading, setIsLoading] = useState(true);
-
-  const locationsExist= true;
-
-  const buildlink = (phrase) => {
-    phrase = phrase.replace(/[áÁ]/g, '%C3%A1')
-                       .replace(/[éÉ]/g, '%C3%A9')
-                       .replace(/[íÍ]/g, '%C3%AD')
-                       .replace(/[óÓ]/g, '%C3%B3')
-                       .replace(/[úÚ]/g, '%C3%BA');
-    var enlace = `https://discursosamlo.s3.us-east-2.amazonaws.com/historial/locations/${phrase}.json`;
-    return enlace;
-  }
 
   const handlePrevNext = (num) => {
     setIsLoading(true);
@@ -46,33 +33,71 @@ const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind, histor
     }
   };
 
-  async function getThePhrases(temporary_locations) {
-    const proxy_location = temporary_locations === null? locationOccurrences : temporary_locations;
+  async function getThePhrases(locations, phraseToFind) {
+    try {
+        const body = {
+            locations: locations,
+            phrase: phraseToFind,
+            download: false,
+        };
+        const response = await fetch('https://discursosamlo.vercel.app/api/builder', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(body)
+        });
+        if (response.ok) {
+            return await response.json();
+        } else {
+            console.error('Error al llamar a la API:', response.status);
+        }
+    } catch (error) {
+        console.error('Error en la solicitud:', error);
+    }
+}
+
+  useEffect(() => {
+  async function fetchData() {
     let locationsToGo;
-    if (currentPage !== pagesNeeded) {
-      locationsToGo = proxy_location.slice(
+    if (locationOccurrences===true) {locationsToGo=true}
+    else {
+      if (currentPage !== pagesNeeded) {
+      locationsToGo = locationOccurrences.slice(
         (currentPage - 1) * phrasesPerPage,
         currentPage * phrasesPerPage
       );
     } else {
-      locationsToGo = proxy_location.slice(
+      locationsToGo = locationOccurrences.slice(
         (currentPage - 1) * phrasesPerPage
       );
     }
-    const response = await axios.get('/build', {
-        params: {
-          locations: JSON.stringify(locationsToGo),
-          download: false
-        }
-      });
-      return response.data;
+    }
+    try {
+      const result = await getThePhrases(locationsToGo);
+      if (locationOccurrences === true) {
+        setLocationOccurrences(result[1]);
+        setHistorial(prevHistorial => ({
+          ...prevHistorial,[phraseToFind]: {
+            locations: result[1]
+          }
+          }));
+      } 
+      setPhrasesToShow(result[0]);
+      setIsLoading(false);
+      console.log("valor de historial", historial)
+      console.log("valor de locationoccurrences", locationOccurrences)
+      } catch (error) {
+        alert('Error al obtener frases. Por favor actualice la página', error);
+        setIsLoading(false);
+      }
   }
- 
+  fetchData();
+  }, [currentPage]);
+
   const handleDownload = async () => {
-    if (locationOccurrences.length<4100) {
+    if (locationOccurrences.length<600) {
       try {
         setIsDownloading(true);
-        await Download(locationOccurrences, mainCounter, historial[phraseToFind].origin, phraseToFind);
+        await Download(locationOccurrences, mainCounter, phraseToFind);
       } catch (error) {
           console.error( error);
       } finally {
@@ -84,54 +109,6 @@ const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind, histor
       alert("Para evitar el consumo excesivo de recursos, se bloquean las descargas de términos con demasiadas menciones. Si usted considera que la obtención de dicha compilación es indispensable para una investigación destinada a revolucionar nuestra comprensión del país, el mundo o la historia universal, puede contactar al programador para que se la envíe.")
     }
   }
-
-  useEffect(() => {
-  async function fetchData() {
-    if (historial[phraseToFind].locations === true && locationsExist=== false)
-    {
-      /*
-      const response = await axios.get(`/full?phrase=${phraseToFind}`);
-      setLocationOccurrences (response !== undefined ? response.data[0]: []);
-      setPhrasesToShow(response !== undefined ? response.data[1]:[]);
-      setHistorial(prevHistorial => ({
-        ...prevHistorial,[phraseToFind]: {
-          locations: response.data[0],
-        }
-        }));*/
-     console.log("lógica para llamar al servidor con 'full' y añadir localizaciones")
-     setIsLoading(false);
-    }
-    else { 
-       let temporary_locations = null;
-       if (historial[phraseToFind].locations === true) {
-        try {
-        const fixed_link = buildlink(phraseToFind);
-        const response = await axios.get(fixed_link) 
-        const newLocations = response.data
-        setHistorial(prevHistorial => ({
-            ...prevHistorial,
-            [phraseToFind]: {
-              ...prevHistorial[phraseToFind], 
-                locations: newLocations}
-          }));
-          setLocationOccurrences(newLocations);
-          temporary_locations = newLocations;
-      } catch (error) {
-        console.error('Error al obtener los datos del servidor', error)
-      }
-      }
-      try {
-        const result = await getThePhrases(temporary_locations);
-        setPhrasesToShow(result);
-        setIsLoading(false);
-      } catch (error) {
-        alert('Error al obtener frases. Por favor actualice la página', error);
-        setIsLoading(false);
-      }
-    }
-  }
-  fetchData();
-  }, [currentPage]);
 
   return (
   <div className="main-container" >

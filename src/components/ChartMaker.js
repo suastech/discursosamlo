@@ -30,19 +30,17 @@ ChartJS.register(
 );
 
 const ChartMaker = (props) => {
-
 const {mainCounter, locationOccurrences, phraseToFind, displayPhrases, setDisplayPhrases,
       historial, setHistorial, setLocationOccurrences} = props;
-
-  const [isWordChart, setIsWordChart] = useState(false);
-  const [indexOrigin, setIndexOrigin] = useState(0);
-  const colors = [
+const [isWordChart, setIsWordChart] = useState(false);
+const [indexOrigin, setIndexOrigin] = useState(0);
+const colors = [
     "rgba(75, 192, 192)", "rgb(123, 139, 164)", "black", "rgb(56, 84, 200)", "rgb(108, 108, 108)",
-    "rgb(255, 99, 132)", "rgb(255, 205, 86)", "rgb(54, 162, 235)", "rgb(255, 159, 64)", "rgb(144, 238, 144)"
-];  const [resultsArray, setResultsArray] = useState([]);
-  const limit_number_words = 10;
-  const limit_phrases = 600;
-  
+    "rgb(255, 99, 132)", "rgb(255, 205, 86)", "rgb(54, 162, 235)", "rgb(255, 159, 64)", "rgb(144, 238, 144)"];  
+const [resultsArray, setResultsArray] = useState([]);
+const limit_number_words = 10;
+const limit_phrases = 600;
+
   const copyToClipboard = () => {
     let textToCopy = `Término: "${phraseToFind}"\nTotal: ${total}\n${mainCounter.map(
       (year, index) => `${2018 + index}: ${year}`).join('\n')}\n\n`;
@@ -64,6 +62,7 @@ const {mainCounter, locationOccurrences, phraseToFind, displayPhrases, setDispla
    };
 
   const activatePhrases = () => {
+
     setDisplayPhrases(true)
     setTimeout(() => {
       document.querySelector('.phrase-displayer').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -71,7 +70,7 @@ const {mainCounter, locationOccurrences, phraseToFind, displayPhrases, setDispla
     }
 
   const total= mainCounter.reduce((acumulador, numero) => acumulador + numero, 0);
-  
+
   const data = {
     labels: ["2018", "2019", "2020", "2021", "2022", "2023", "2024"],
     datasets: [
@@ -124,9 +123,7 @@ const {mainCounter, locationOccurrences, phraseToFind, displayPhrases, setDispla
     }
     <div className='mainchart'>
       <div className='chart-container'>
-
         <div style={{textAlign:'center', fontSize:'18px'}}>Búsqueda: {phraseToFind}<br/>{total} repeticiones encontradas</div>
-
         {resultsArray.length>0?
         <div style={{display:'flex', marginTop:'15px', justifyContent:'center'}}>
           <p style={{fontSize:'16px', marginRight:'10px', color: colors[0] }}>{phraseToFind} {total}</p>  
@@ -197,7 +194,9 @@ const {mainCounter, locationOccurrences, phraseToFind, displayPhrases, setDispla
                 title={total>limit_phrases? "La solicitud de frases no está activa para términos con demasiadas ocurrencias." : "Ver frases"}
                 disabled={displayPhrases === true || total === 0 || total>limit_phrases} 
                 style={{
-                  cursor: displayPhrases || total === 0 || total > limit_phrases ? 'not-allowed' : 'pointer'}}
+                  cursor: displayPhrases || total === 0 || total > limit_phrases ? 'not-allowed' : 'pointer',
+                  opacity:  displayPhrases || total === 0 || total > limit_phrases ? '0.7' : '1'
+                }}
                 >
         Ver frases
         </button>

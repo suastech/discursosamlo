@@ -63,7 +63,7 @@ async function launchsearch(phrase) {
     setDisplayPhrases(false);
     setIsLoading(true);
     setDisplayChart(true);
-        
+
    if (historial[phrase]) {
       //La respuesta sale desde el historial:
       await new Promise(resolve => setTimeout(resolve, 2000));
@@ -78,9 +78,7 @@ async function launchsearch(phrase) {
       
       if (externalList.includes(phrase)) {
         try {
-          //console.log("Búsqueda de servidor externo")
-          //await new Promise(resolve => setTimeout(resolve, 1000));
-          //console.log("funciona la pausa?")
+          await new Promise(resolve => setTimeout(resolve, 1000));
           newLocationOccurrences = true;
           newMainCounter= main_historial.list_of_words[phrase].counter;  
           origin = true;
@@ -158,9 +156,7 @@ return (
       :
       <> 
       <div className='search'>
-          
-          
-          <div>
+         <div>
             <input
               className='input-styles'
               type="text"
