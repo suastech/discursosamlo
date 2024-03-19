@@ -6,8 +6,7 @@ async function Finder(phrase) {
     const url = `https://discursosamlo.vercel.app/api/newsearch?phrase=${encodeURIComponent(phrase)}`;
         const response = await fetch(url, {
           method: 'GET',
-          headers: {
-       'Content-Type': 'application/json',
+          headers: {'Content-Type': 'application/json',
       },
       });
       if (response.ok) {

@@ -7,7 +7,7 @@ async function builder(req, res) {
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     let { locations, phrase, download } = req.body;   
-    
+    console.log("llega con:", locations, phrase, download)
 //Build
 async function buildPhrases(locationsToGo, download) {
     let listOfQuotes = [];
@@ -120,10 +120,12 @@ let location_occurrences = [];
 
 if (locations === true) {
     const response = await searchAndBuild(phrase)
+    console.log("Respuesta de search&build", response)
     res.json(response)
     return
 } else {
     const response = await buildPhrases(locations,download)
+    console.log("Respuesta de buildPhrases", response)
     res.json(response)
     return
     }
