@@ -8,6 +8,7 @@ async function newsearch(req, res) {
 
   const { phrase } = req.query;
   console.log("llega al servidor con:", phrase);
+  console.log("¿Tengo la variabe?", DATABASE_URL)
   
   let files;
   let location_occurrences = [];
