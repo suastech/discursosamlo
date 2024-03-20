@@ -64,6 +64,7 @@ async function buildPhrases(locationsToGo, download) {
 async function searchAndBuild(phrase) {
 let files;
 let location_occurrences = [];
+let listOfQuotes = [];
   try {
     files = await prisma.newfile.findMany({ where: { content: { contains: phrase,},},
     });
@@ -75,14 +76,13 @@ let location_occurrences = [];
     }}
 //Construcción de frases
   let locationsToGo= location_occurrences.length<=10? location_occurrences: location_occurrences.slice(0, 10)
-  let listOfQuotes = [];
   let finalLocations = {}
     for (const [key, value] of locationsToGo) {
     finalLocations[key]?
     finalLocations[key].push(value)
     : finalLocations[key] = [value];
     }
-    for (const speechId in finalLocations) {    
+    for (const speechId in finalLocations) {
         const idNumber = parseInt(speechId, 10);
         const file = files.find(f => f.id === idNumber);
         const date = file.title.substring(0, 10).replace(/_/g, '/');
@@ -106,8 +106,6 @@ let location_occurrences = [];
             listOfQuotes.push(phrase)
             }
         }
-   
- return [listOfQuotes, location_occurrences];
 
 } catch (error) {
     console.error("No se pudo acceder a la base de datos", error);
@@ -115,10 +113,13 @@ let location_occurrences = [];
   } finally {
     await prisma.$disconnect();
   }
+  console.log("F:",files.length)
+  return [listOfQuotes, location_occurrences];
 }
 
 if (locations === true) {
     const response = await searchAndBuild(phrase)
+    console.log("RespS&B", response[0].length, response[1].length)
     res.json(response)
     return
 } else {
