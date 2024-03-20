@@ -1,7 +1,7 @@
 import { saveAs } from 'file-saver';
 
 async function Download(locationOccurrences, mainCounter, phraseToFind) {
-  const projectName = "Discursos AMLO";
+  const projectName = "Amlo dice.";
 
   try {
       const body = {
@@ -9,7 +9,7 @@ async function Download(locationOccurrences, mainCounter, phraseToFind) {
           phrase: phraseToFind,
           download: false,
       };
-      const response = await fetch('https://discursosamlo.vercel.app/api/builder', {
+      const response = await fetch('https://amlodice.vercel.app/api/builder', {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(body)
@@ -24,7 +24,7 @@ async function Download(locationOccurrences, mainCounter, phraseToFind) {
       // Generate file content
       const header = `Repeticiones del término: ${phraseToFind}\nTotal:${locationOccurrences.length}\n\nDesglose anual:\n${yearSummary}\n\n`;
       const quotes = arrayOfPhrases.map(element => `#${element.id}. ${element.date} ${element.name}.\n...${element.text}...`).join('\n\n');
-      const ending = `\n\n\n**********\nDiscursos AMLO\ndiscursosamlo.vercel.app\nCon información pública de presidencia.gob.mx y lopezobrador.org.mx\nProgramación y diseño : Jesús Suaste Cherizola.`
+      const ending = `\n\n\n**********\nAmlo dice. Herramienta para el análisis del discurso\namlodice.vercel.app\nCon información pública de presidencia.gob.mx y lopezobrador.org.mx\nProgramación y diseño : Jesús Suaste Cherizola.`
       const fullContent = `${header}${quotes}${ending}`
 
       // Download

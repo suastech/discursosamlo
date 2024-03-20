@@ -39,7 +39,7 @@ const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind}) => {
             locations: locations,
             download: false,
         };
-        const response = await fetch('https://discursosamlo.vercel.app/api/builder', {
+        const response = await fetch('https://amlodice.vercel.app/api/builder', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(body)

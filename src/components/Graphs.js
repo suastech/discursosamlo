@@ -36,7 +36,7 @@ function Graphs( {setIsGraphs}) {
             (year, index) => `${2018 + index}: ${year}`).join('\n')}\n\n` 
         }
       });
-      textToCopy += `El discurso presidencial. discursosamlo.vercel.app`
+      textToCopy += `https://amlodice.vercel.app`
     }
     navigator.clipboard.writeText(textToCopy.trim())
       .then(() => {

@@ -50,7 +50,7 @@ const limit_phrases = 600;
         textToCopy += `Término: "${value}"\nTotal: ${mappedValue.total}\n${mappedValue.counter.map(
           (year, index) => `${2018 + index}: ${year}`).join('\n')}\n\n`;
       }})
-    textToCopy += `El discurso presidencial\nhttp://discursosamlo.vercel.app`
+    textToCopy += `Amlo dice. Herramienta para el análisis del discurso.\nhttp://amlodice.vercel.app`
     navigator.clipboard.writeText(textToCopy.trim())
       .then(() => {
         alert('Información de la gráfica copiada al portapapeles');

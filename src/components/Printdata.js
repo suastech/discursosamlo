@@ -11,7 +11,7 @@ function Printdata() {
   const handlePrintData = (format) => {
     const list_of_words = main_historial.list_of_words;
 
-    let data = [ [`El discurso presidencial`] ];
+    let data = [ [`Amlo dice. Herramienta para el análisis del discurso`] ];
     data.push(["Término", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "Total"]);
     Object.keys(list_of_words).forEach((word) => {
       const counter = list_of_words[word].counter;
@@ -19,7 +19,7 @@ function Printdata() {
       data.push([word, ...counter, total]);
       });
     data.push([`Con base en la transcripción de los discursos presidenciales disponibles en presodencia.gob.mx. Discursos entre el 01/12/18 y el ${main_historial.last_update}. Para más información sobre los discursos consultados y las funciones de búsqueda puedes consultar: Programación y diseño: Jesús Suaste Cherizola`])
-    data.push([`http://discursosamlo.vercel.app`])
+    data.push([`http://amlodice.vercel.app`])
 
     let fileContent;
 

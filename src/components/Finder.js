@@ -3,7 +3,7 @@
 async function Finder(phrase) {
   try {
    
-    const url = `https://discursosamlo.vercel.app/api/newsearch?phrase=${encodeURIComponent(phrase)}`;
+    const url = `https://amlodice.vercel.app/api/newsearch?phrase=${encodeURIComponent(phrase)}`;
         const response = await fetch(url, {
           method: 'GET',
           headers: {'Content-Type': 'application/json',
