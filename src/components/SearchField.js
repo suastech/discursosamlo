@@ -22,7 +22,9 @@ const SearchField = (props) => {
   const [isFrecuent, setIsFrecuent] = useState(false);
   const [isGraphs, setIsGraphs] = useState(false);
   const [welcome, setWelcome] = useState(true);
+  const pause = 1000;
 
+  console.log(historial)
   const exepciones = ["fox", "ine", "pri", "pan"];
 
   const externalList = Object.keys(main_historial.list_of_words);
@@ -41,17 +43,15 @@ const handleKeyPress = (event) => {
 
 function display_results(total) {
       if (total > 0) {
-           setIsLoading(false)
+        setIsLoading(false);
       } else { 
           setDisplayChart(false)
           setIsLoading(false)
-          document.getElementById("searchField").value = "";
-        alert("Ninguna coincidencia encontrada");
+          alert("Ninguna coincidencia encontrada");
       }
     }
 
 async function launchsearch(phrase) {
-    //Menu buttons
     setIsInfo(false);
     setIsSupport(false);
     setIsExtra(false);
@@ -63,10 +63,11 @@ async function launchsearch(phrase) {
     setDisplayPhrases(false);
     setIsLoading(true);
     setDisplayChart(true);
+    document.getElementById("searchField").value = phrase;
+
 
    if (historial[phrase]) {
-      //La respuesta sale desde el historial:
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise(resolve => setTimeout(resolve, pause));
       setLocationOccurrences(historial[phrase].locations);
       setMainCounter(historial[phrase].counter);
       display_results(historial[phrase].total)
@@ -74,14 +75,12 @@ async function launchsearch(phrase) {
     else  {
       let newLocationOccurrences;
       let newMainCounter;  
-      let origin= false;
-      
+      //Evaluar si la solicitud está en la lista externa
       if (externalList.includes(phrase)) {
         try {
-          await new Promise(resolve => setTimeout(resolve, 1000));
-          newLocationOccurrences = true;
+          await new Promise(resolve => setTimeout(resolve, pause));
+          newLocationOccurrences = main_historial.list_of_words[phrase].locations;
           newMainCounter= main_historial.list_of_words[phrase].counter;  
-          origin = true;
         } catch (error) {
           console.error("Error obteniendo información de externo", error);
         }
@@ -107,12 +106,11 @@ async function launchsearch(phrase) {
             locations: newLocationOccurrences,
             counter: newMainCounter,
             total: total,
-            origin: origin
           }
           }));
       display_results(total);
-  }
-  }
+    }
+}
 
 const handleSearch = (phrase) => {
     phrase = phrase.trim().toLowerCase()
@@ -198,8 +196,7 @@ return (
        <div id='welcome-message'>
         <img id='closeButton' onClick={() => setWelcome(false)} 
         src={close} alt='close'/>
-          <p>¡Bienvenid@!</p>
-          <p>Esta herramienta encuentra palabras y frases pronunciadas por el presidente de México en sus conferencias de prensa y actos públicos.</p>
+          <p>Este buscador encuentra palabras y frases pronunciadas en las conferencias de prensa y actos públicos de la presidencia de México.</p>
           <p>Para saber más sobre el funcionamiento del buscador puedes hacer click en el ícono de <span style={{color:'blue', textDecoration:'underline', cursor:'pointer'}} onClick={()=> {setWelcome(false); setIsInfo(true)}} >Información</span>.</p>
        </div>
        :

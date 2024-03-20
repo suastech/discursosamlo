@@ -25,6 +25,7 @@ header img {
     
 #text-image  {
  position: absolute;
+ cursor: pointer;
  user-select: none;
  margin-right: 90px;
  top: 36px;
@@ -34,5 +35,4 @@ header img {
  height: 28px;
  overflow: hidden;
  line-height: 0.8;
- cursor: none;
 }

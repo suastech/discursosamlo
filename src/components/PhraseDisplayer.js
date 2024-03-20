@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import MarkText from "./MarkText.js";
 import Download from "./Download.js";
 
-const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind, historial, setHistorial, setLocationOccurrences}) => {
+const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind}) => {
   const phrasesPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const inputRef = useRef(null);
@@ -33,11 +33,10 @@ const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind, histor
     }
   };
 
-  async function getThePhrases(locations, phraseToFind) {
+  async function getThePhrases(locations) {
     try {
         const body = {
             locations: locations,
-            phrase: phraseToFind,
             download: false,
         };
         const response = await fetch('https://discursosamlo.vercel.app/api/builder', {
@@ -46,7 +45,6 @@ const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind, histor
             body: JSON.stringify(body)
         });
         if (response.ok) {
-           console.log("lo que devuelve getThePhrases en 49: ", response)
             return await response.json();
         } else {
             console.error('Error al llamar a la API:', response.status);
@@ -59,9 +57,7 @@ const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind, histor
   useEffect(() => {
   async function fetchData() {
     let locationsToGo;
-    if (locationOccurrences===true) {locationsToGo=true}
-    else {
-      if (currentPage !== pagesNeeded) {
+    if (currentPage !== pagesNeeded) {
       locationsToGo = locationOccurrences.slice(
         (currentPage - 1) * phrasesPerPage,
         currentPage * phrasesPerPage
@@ -71,18 +67,8 @@ const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind, histor
         (currentPage - 1) * phrasesPerPage
       );
     }
-    }
     try {
       const result = await getThePhrases(locationsToGo);
-      console.log("Lo que recibe fetchdata de getThePhrases:", result)
-      if (locationOccurrences === true) {
-        setLocationOccurrences(result[1]);
-        setHistorial(prevHistorial => ({
-          ...prevHistorial,[phraseToFind]: {
-            locations: result[1]
-          }
-          }));
-      }
       setPhrasesToShow(result);
       setIsLoading(false);
       } catch (error) {
