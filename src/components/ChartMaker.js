@@ -53,11 +53,11 @@ const limit_phrases = 600;
     textToCopy += `El discurso presidencial\nhttp://discursosamlo.vercel.app`
     navigator.clipboard.writeText(textToCopy.trim())
       .then(() => {
-        alert('Informaión de la gráfica copiada al portapapeles');
+        alert('Información de la gráfica copiada al portapapeles');
       })
       .catch((error) => {
         console.error('Error al copiar al portapapeles:', error);
-        alert('¡Hubo un error al intentar copiar la información al portapapeles!');
+        alert('Hubo un error al intentar copiar la información al portapapeles');
       }); 
    };
 

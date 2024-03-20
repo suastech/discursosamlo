@@ -24,7 +24,6 @@ const SearchField = (props) => {
   const [welcome, setWelcome] = useState(true);
   const pause = 1000;
 
-  console.log(historial)
   const exepciones = ["fox", "ine", "pri", "pan"];
 
   const externalList = Object.keys(main_historial.list_of_words);
