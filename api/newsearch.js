@@ -28,10 +28,10 @@ async function newsearch(req, res) {
     await prisma.$disconnect();
   }
   // Buscar SIEMPRE coincidencia exacta
-  let expression = new RegExp(`\\b${phrase}\\b`, "gi");
+  let expression = new RegExp(`\\b${phrase}\\b`, "g");
   for (const file of files) {
     let match;
-    while ((match = expression.exec(file.content.toLowerCase())) !== null) {
+    while ((match = expression.exec(file.content)) !== null) {
       main_counter[file.title.substring(0, 4)] += 1;
       location_occurrences.unshift([file.id, match.index]);
     }

@@ -68,10 +68,10 @@ let listOfQuotes = [];
   try {
     files = await prisma.newfile.findMany({ where: { content: { contains: phrase,},},
     });
-    let expression = new RegExp(`\\b${phrase}\\b`, "gi");
+    let expression = new RegExp(`\\b${phrase}\\b`, "g");
     for (const file of files) {
     let match;
-    while ((match = expression.exec(file.content.toLowerCase())) !== null) {
+    while ((match = expression.exec(file.content)) !== null) {
       location_occurrences.unshift([file.id, match.index]);
     }}
 //Construcción de frases
@@ -101,8 +101,7 @@ let listOfQuotes = [];
               'name': name,
               'text': fullquote,
               'website': link
-              }
-            
+              }            
             listOfQuotes.push(phrase)
             }
         }
@@ -113,7 +112,7 @@ let listOfQuotes = [];
   } finally {
     await prisma.$disconnect();
   }
-  console.log("F:",files.length)
+  console.log("R=", listOfQuotes.length, location_occurrences.length)
   return [listOfQuotes, location_occurrences];
 }
 
