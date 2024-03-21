@@ -14,7 +14,11 @@ function App() {
   const [isSupport, setIsSupport] = useState(false);
   const [isExtra, setIsExtra] = useState(false);
   const [isDownloadData, setIsDownloadData] = useState(false);
- 
+  
+  const prueba = process.env.DATA_URL? process.env.DATA_URL: "nada de nada" 
+  console.log(prueba.substring(0, 4));
+  
+
   return (
   <div className='full-content'>
     <Header/>

@@ -92,7 +92,7 @@ async function launchsearch(phrase) {
                 setDisplayChart(false);
                 setIsLoading(false);
           }
-       }
+      }
       if (newLocationOccurrences === undefined) newLocationOccurrences= [];
       if (newMainCounter === undefined) newMainCounter= {};
       setLocationOccurrences(newLocationOccurrences);
@@ -195,8 +195,10 @@ return (
        <div id='welcome-message'>
         <img id='closeButton' onClick={() => setWelcome(false)} 
         src={close} alt='close'/>
-          <p>Este buscador encuentra palabras y frases pronunciadas en las conferencias de prensa y actos públicos de la presidencia de México.</p>
-          <p>Para saber más sobre el funcionamiento del buscador puedes hacer click en el ícono de <span style={{color:'blue', textDecoration:'underline', cursor:'pointer'}} onClick={()=> {setWelcome(false); setIsInfo(true)}} >Información</span>.</p>
+          <p>¡Bienvenid@!</p>
+          <p>Este buscador encuentra palabras o frases pronunciadas en las conferencias de prensa y actos públicos de la presidencia de México.</p>
+          <p>Para saber más sobre el funcionamiento del buscador puedes hacer click en el ícono de <span style={{color:'blue', textDecoration:'underline', cursor:'pointer'}} onClick={()=> {setWelcome(false); setIsInfo(true)}} >Información</span> o visitar 
+            <span style={{color:'blue', textDecoration:'underline', cursor:'pointer'}}><a href="https://github.com/suastech/infoDiscursosAmlo" rel='noreferrer' target="_blank"> este repositorio Github</a></span>.</p>
        </div>
        :
        null

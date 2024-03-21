@@ -2,6 +2,8 @@ import "../style-sheets/PhraseDisplayer.css";
 import { useState, useRef, useEffect } from "react";
 import MarkText from "./MarkText.js";
 import Download from "./Download.js";
+import main_historial from '../main_historial.js';
+
 
 const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind}) => {
   const phrasesPerPage = 10;
@@ -80,7 +82,7 @@ const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind}) => {
   }, [currentPage]);
 
   const handleDownload = async () => {
-    if (locationOccurrences.length<600) {
+    if (locationOccurrences.length<main_historial.limit_phrases) {
       try {
         setIsDownloading(true);
         await Download(locationOccurrences, mainCounter, phraseToFind);
@@ -92,7 +94,7 @@ const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind}) => {
       }
     }
     else {
-      alert("Para evitar el consumo excesivo de recursos, se bloquean las descargas de términos con demasiadas menciones. Si usted considera que la obtención de dicha compilación es indispensable para una investigación destinada a revolucionar nuestra comprensión del país, el mundo o la historia universal, puede contactar al programador para que se la envíe.")
+      alert("Para evitar el consumo excesivo de recursos, se bloquean las descargas de términos con demasiadas menciones.")
     }
   }
 

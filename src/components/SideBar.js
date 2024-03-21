@@ -9,6 +9,7 @@ import paypal from '../imagenes/paypal.png';
 import creativeCommons from '../imagenes/licencia.png';
 import descargar from '../imagenes/descargar.jpg';
 import Printdata from './Printdata.js';
+import main_historial from '../main_historial.js'
 
 function SideBar(props) {
   const {isInfo, setIsInfo, isSupport, setIsSupport, isExtra, setIsExtra, isDownloadData, setIsDownloadData} = props
@@ -65,13 +66,14 @@ return (
                 src={close} alt='close'/>
           Información
       <ul style={{textAlign:'left'}}>
-        <li>El buscador contabiliza las menciones de una cadena de texto, permite mostrar cada aparición y descargar un informe con todas las frases encontradas.</li>
-        <li>Puedes hacer click sobre cada cita para ir a la página de la transcripción del evento.</li>
-        <li>La búsqueda no distingue entre minúsculas y mayúsculas, pero sí detecta acentos.</li> 
-        <li>El buscador no distingue entre palabras pronunciadas por el presidente y otros participantes en los eventos.</li>
-        <li>La gran mayoría de los discursos son obtenidos del sitio de presidencia.gob.mx. Los demás se obtuvieron en la página lopezobrador.org.mx. </li>
-        <li>Si te resulta útil esta página, considera realizar un donativo para mantener el sitio (y al programador) en funcionamiento.</li>
-      </ul> 
+        <li>El buscador contabiliza las coincidencias de una cadena de texto en una base compuesta por {main_historial.quantity.toLocaleString('es-MX')} discursos y muestra su frecuencia anual. Puedes realizar tus propias búsquedas o elegir de la lista de términos frecuentes.</li>
+        <li>Además, permite mostrar cada coincidencia y descargar un informe con todas las frases encontradas. Puedes hacer click sobre cada cita para ir a la página de la transcripción del evento.</li>
+        <li>Actualmente, la visualización de frases está restringida para palabras con más de {main_historial.limit_phrases} repeticiones. Si estás realizando una investigación destinada a revolucionar nuestra comprensión del país o el mundo y esta restricción la afecta sensiblemente, puedes contactar al programador para remediar la situación cuanto antes.</li>
+        <li>El método de búsqueda devuelve coincidencias exactas (por ejemplo: la búsqueda de la cadena "neoliberal" no reconocerá como coinciencia la cadena "neoliberales"). No distingue entre minúsculas y mayúsculas, pero sí detecta acentos.</li>
+        <li>El buscador no distingue entre palabras pronunciadas por el presidente y otros participantes de los distintos eventos. Si necesitas obtener una cita textual, puedes hacer click sobre la frase para ir a la página de la transcripción oficial para verificar el origen.</li>
+        <li>Para ver en detalle el código del método de búsqueda y la lista completa de los discursos indexados puedes dirigirte a <span style={{color:'blue', textDecoration:'underline', cursor:'pointer'}}><a href="https://github.com/suastech/infoDiscursosAmlo" rel='noreferrer' target="_blank"> este repositorio Github</a></span>.</li>
+        <li>Si te resulta útil esta página, considera realizar un donativo para mantener el sitio en funcionamiento.</li>
+      </ul>
     </div>
     }
 
