@@ -15,7 +15,7 @@ function App() {
   const [isExtra, setIsExtra] = useState(false);
   const [isDownloadData, setIsDownloadData] = useState(false);
   
-  const prueba = process.env.DATA_URL? process.env.DATA_URL: "nada de nada" 
+  const prueba = DATA_URL? DATA_URL: "nada de nada" 
   console.log(prueba.substring(0, 4));
   
 

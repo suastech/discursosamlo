@@ -69,8 +69,10 @@ return (
         <li>El buscador contabiliza las coincidencias de una cadena de texto en una base compuesta por {main_historial.quantity.toLocaleString('es-MX')} discursos y muestra su frecuencia anual. Puedes realizar tus propias búsquedas o elegir de la lista de términos frecuentes.</li>
         <li>Además, permite mostrar cada coincidencia y descargar un informe con todas las frases encontradas. Puedes hacer click sobre cada cita para ir a la página de la transcripción del evento.</li>
         <li>Actualmente, la visualización de frases está restringida para palabras con más de {main_historial.limit_phrases} repeticiones. Si estás realizando una investigación destinada a revolucionar nuestra comprensión del país o el mundo y esta restricción la afecta sensiblemente, puedes contactar al programador para remediar la situación cuanto antes.</li>
-        <li>El método de búsqueda devuelve coincidencias exactas (por ejemplo: la búsqueda de la cadena "neoliberal" no reconocerá como coinciencia la cadena "neoliberales"). No distingue entre minúsculas y mayúsculas, pero sí detecta acentos.</li>
+        <li>En la sección de "Comparativos" puedes explorar grácficas temáticas y comparar términos frecuentes.</li>
+        <li>El método de búsqueda devuelve coincidencias exactas (por ejemplo: la búsqueda de la cadena "neoliberal" no reconocerá como coincidencia la cadena "neoliberales"). No distingue entre minúsculas y mayúsculas, pero sí detecta acentos.</li>
         <li>El buscador no distingue entre palabras pronunciadas por el presidente y otros participantes de los distintos eventos. Si necesitas obtener una cita textual, puedes hacer click sobre la frase para ir a la página de la transcripción oficial para verificar el origen.</li>
+        <li>En la opción "Descargar" puedes obtener la base de términos frecuentes en formato XLSX o CSV</li>
         <li>Para ver en detalle el código del método de búsqueda y la lista completa de los discursos indexados puedes dirigirte a <span style={{color:'blue', textDecoration:'underline', cursor:'pointer'}}><a href="https://github.com/suastech/infoDiscursosAmlo" rel='noreferrer' target="_blank"> este repositorio Github</a></span>.</li>
         <li>Si te resulta útil esta página, considera realizar un donativo para mantener el sitio en funcionamiento.</li>
       </ul>
