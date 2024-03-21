@@ -25,7 +25,8 @@ const SearchField = (props) => {
   const pause = 1000;
   const exepciones = ["fox", "ine", "pri", "pan"];
 
-  console.log(process.env.ORIGIN_CHECK? process.env.ORIGIN_CHECK: "no está");
+  const verifica = process.env.REACT_APP_ORIGIN_CHECK === 'prueba'? "sí está": "no está";
+  console.log(verifica)
 
 
   const externalList = Object.keys(main_historial.list_of_words);
