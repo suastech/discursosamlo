@@ -14,6 +14,7 @@
     "dotenv": "^16.4.5",
     "file-saver": "^2.0.5",
     "json2csv": "^6.0.0-alpha.2",
+    "micro": "^10.0.1",
     "pg": "^8.11.3",
     "puppeteer": "^22.4.1",
     "react": "^18.2.0",
