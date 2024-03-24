@@ -16,7 +16,6 @@ async function builder(req, res) {
     }
 
     const inf_deco = decode(pass)
-
     console.log(inf_deco)
 
     if (inf_deco.valido === false) {

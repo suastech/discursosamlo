@@ -19,6 +19,7 @@ const final_noise = 2;
 const numberOfComponents = 3;
 const mapa_inverso = invertir(mapa);
 const middle_noise= 2;
+const limit_span = 10;
 
 function invertir(objeto) {
     const objetoInverso = {};
@@ -104,7 +105,7 @@ let date_function_utc = Date.UTC(
     date_function.getUTCMinutes(),
     date_function.getUTCSeconds(),
     date_function.getUTCMilliseconds()
-);
+    );
 date_function_utc = parseInt(date_function_utc.toString().slice(-longitud_date), 10)
 
 const diferencia = Math.abs(date_function_utc - got_date);
@@ -116,8 +117,9 @@ const response = {
     "fechaFunción": date_function,
     "fechaFuncionUTC": date_function_utc,
     "fechaObtenida": got_date,
+    "dif_simple": date_function_utc - got_date,
     "Diferencia": diferencia,
-    "valido": diferencia_decisegundos<6,
+    "valido": diferencia_decisegundos<limit_span,
     }
 
 return response
