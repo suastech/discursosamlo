@@ -1,3 +1,4 @@
+import decode from '../decode.js'
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
@@ -6,8 +7,15 @@ async function newsearch(req, res) {
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  const { phrase } = req.query;
+  const { phrase, pass } = req.query;
+  console.log("Recibidos:", phrase, pass)
   
+  if (!phrase || !pass) {
+    return res.status(400).json({ error: 'Solicitud inválida' });
+  }
+
+  const inf_deco =decode(pass)
+
   let files;
   let location_occurrences = [];
   let main_counter = {2018: 0, 2019: 0, 2020: 0, 2021: 0, 2022: 0, 2023: 0, 2024: 0};
@@ -38,7 +46,7 @@ async function newsearch(req, res) {
   }
   main_counter = Object.values(main_counter);
 
-  res.json([location_occurrences, main_counter]);
+  return res.json([location_occurrences, main_counter, inf_deco]);
 }
 
 export default newsearch;

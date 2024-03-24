@@ -7,7 +7,7 @@ async function Download(locationOccurrences, mainCounter, phraseToFind) {
       const body = {
           locations: locationOccurrences,
           phrase: phraseToFind,
-          download: false,
+          download: true,
       };
       const response = await fetch('https://amlodice.vercel.app/api/builder', {
           method: 'POST',
