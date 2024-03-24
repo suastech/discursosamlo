@@ -11,7 +11,7 @@ async function newsearch(req, res) {
   const { phrase, pass } = req.query;
   
   if (!phrase || !pass) {
-    return res.status(400).json({ error: 'Solicitud vacía'});
+    return res.status(400).json({ error: 'Solicitud inválida'});
   }
 
   const inf_deco =decode(pass, date_function)
