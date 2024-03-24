@@ -1,6 +1,5 @@
 import decode from '../decode.js'
 import { PrismaClient } from "@prisma/client";
-import { json } from 'micro';
 
 const prisma = new PrismaClient();
 const context_size = 150;
@@ -9,10 +8,8 @@ async function builder(req, res) {
     res.setHeader('Access-Control-Allow-Origin', 'https://amlodice.vercel.app');
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    console.log("ok")
-    // Parsear el cuerpo de la solicitud como JSON
-    const body = await json(req);
-    // Extraer las variables del cuerpo de la solicitud
+
+    const body = await req.json();
     const { locations, download, pass } = body;
 
     if (!locations || !download || !pass) {
