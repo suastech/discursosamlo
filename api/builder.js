@@ -11,6 +11,10 @@ async function builder(req, res) {
     const body = req.body;
     const { locations, download, pass } = body;
 
+    if (locations===undefined || download===undefined|| pass === undefined) {
+      return res.status(400).json({ error: 'Solicitud vacía'});
+    }
+
     const inf_deco = decode(pass)
 
     console.log(inf_deco)
