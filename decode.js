@@ -8,8 +8,7 @@
 
 import mapa from './encypt/mapa.js'
 
-function decode(password) {
-const date_function = new Date();
+function decode(password, date_function) {
 
 const longitud_date = 9;
 let primo = 100267;
@@ -19,7 +18,7 @@ const final_noise = 2;
 const numberOfComponents = 3;
 const mapa_inverso = invertir(mapa);
 const middle_noise= 2;
-const limit_span = 50;
+const limit_span = 120; //12 segundos
 
 function invertir(objeto) {
     const objetoInverso = {};

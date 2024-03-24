@@ -6,6 +6,7 @@ async function newsearch(req, res) {
   res.setHeader('Access-Control-Allow-Origin', 'https://amlodice.vercel.app');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  const date_function = new Date();
 
   const { phrase, pass } = req.query;
   
@@ -13,7 +14,7 @@ async function newsearch(req, res) {
     return res.status(400).json({ error: 'Solicitud vacía'});
   }
 
-  const inf_deco =decode(pass)
+  const inf_deco =decode(pass, date_function)
   console.log(inf_deco,phrase)
 
   if (inf_deco.valido === false) {
