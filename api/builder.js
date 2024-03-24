@@ -1,5 +1,5 @@
-import { PrismaClient } from "@prisma/client";
 import decode from '../decode.js'
+import { PrismaClient } from "@prisma/client";
 import { json } from 'micro';
 
 const prisma = new PrismaClient();
@@ -14,7 +14,7 @@ async function builder(req, res) {
     const body = await json(req);
     // Extraer las variables del cuerpo de la solicitud
     const { locations, download, pass } = body;
-    
+
     if (!locations || !download || !pass) {
       return res.status(400).json({ error: 'Solicitud vacía.' });
     }

@@ -5,7 +5,6 @@ import Download from "./Download.js";
 import main_historial from '../main_historial.js';
 import encode from './encode.js'
 
-
 const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind}) => {
   const phrasesPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
