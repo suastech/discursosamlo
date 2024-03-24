@@ -1,4 +1,6 @@
 import { saveAs } from 'file-saver';
+import encode from './encode.js'
+
 
 async function Download(locationOccurrences, mainCounter, phraseToFind) {
   const projectName = "Amlo dice.";
@@ -8,6 +10,7 @@ async function Download(locationOccurrences, mainCounter, phraseToFind) {
           locations: locationOccurrences,
           phrase: phraseToFind,
           download: true,
+          pass: encode()
       };
       const response = await fetch('https://amlodice.vercel.app/api/builder', {
           method: 'POST',
@@ -32,10 +35,20 @@ async function Download(locationOccurrences, mainCounter, phraseToFind) {
       saveAs(blob, `Informe del término ${phraseToFind}, ${projectName}.txt`);
       }
       }
+      else {
+        if (response.status === 400) {
+            const errorData = await response.json();
+            console.error(errorData.error, response.status);
+            alert("Invalid request")
+
+        } else {
+            console.error('Error al llamar a la API:', response.status);
+        }
+      }
     } catch (error) {
-      alert('Falló la conexión al servidor. Por favor intenta más tarde:', error);
-    }
-  
+      console.error('Error en la solicitud:', error);
+      }
+     
   }
 
 

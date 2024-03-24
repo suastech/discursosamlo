@@ -79,7 +79,6 @@ const multiplied_date = (date_code_utc*product_components).toString()
 const date_to_map = multiplied_date.slice(components[1] % 10) + multiplied_date.slice(0, components[1] % 10);
 const showed_date = mapear(date_to_map);
 
-
 return `${generateRandom(4)}${verificadorDecimal}${showed_date}${generateRandom(middle_noise)}${showed_pass}${String.fromCharCode(encode_length+showed_pass.length)}${generateRandom(final_noise)}`
 }
 

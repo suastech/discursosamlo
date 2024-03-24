@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import MarkText from "./MarkText.js";
 import Download from "./Download.js";
 import main_historial from '../main_historial.js';
+import encode from './encode.js'
 
 
 const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind}) => {
@@ -35,11 +36,12 @@ const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind}) => {
     }
   };
 
-  async function getThePhrases(locations) {
+async function getThePhrases(locations) {
     try {
         const body = {
             locations: locations,
             download: false,
+            pass: encode()
         };
         const response = await fetch('https://amlodice.vercel.app/api/builder', {
             method: 'POST',
@@ -49,11 +51,16 @@ const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind}) => {
         if (response.ok) {
             return await response.json();
         } else {
-            console.error('Error al llamar a la API:', response.status);
+          if (response.status === 400) {
+              const errorData = await response.json();
+              console.error(errorData.error, response.status);
+              alert("Invalid request")
+          } else {
+              console.error('Error al llamar a la API:', response.status);
+          }
         }
-    } catch (error) {
-        console.error('Error en la solicitud:', error);
-    }
+      }
+      catch (error) { console.error('Error en la solicitud:', error);}
 }
 
   useEffect(() => {

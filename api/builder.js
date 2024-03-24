@@ -1,4 +1,6 @@
 import { PrismaClient } from "@prisma/client";
+import decode from '../decode.js'
+
 const prisma = new PrismaClient();
 const context_size = 150;
 
@@ -6,8 +8,22 @@ async function builder(req, res) {
     res.setHeader('Access-Control-Allow-Origin', 'https://amlodice.vercel.app');
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    let { locations, download } = req.body;   
+    let { locations, download, pass } = req.body;
 
+    if (!locations || !download || !pass) {
+      return res.status(400).json({ error: 'Solicitud vacía.' });
+    }
+
+    const inf_deco =decode(pass)
+
+    console.log(inf_deco)
+
+    if (inf_deco.valido === false) {
+      return res.status(400).json({
+      error: 'La solicitud no fue válida. Por favor intenta nuevamente',
+      });
+      }
+  
   async function buildPhrases(locationsToGo, download) {
     let listOfQuotes = [];
     let finalLocations = {}
@@ -61,9 +77,7 @@ async function builder(req, res) {
   }
 
 const response = await buildPhrases(locations,download)
-res.json(response)
-return
-
+return res.json(response)
 };
 
 

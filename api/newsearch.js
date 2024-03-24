@@ -8,13 +8,20 @@ async function newsearch(req, res) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   const { phrase, pass } = req.query;
-  console.log("Recibidos:", phrase, pass)
   
   if (!phrase || !pass) {
-    return res.status(400).json({ error: 'Solicitud inválida' });
+    return res.status(400).json({ error: 'Solicitud vacía'});
   }
 
   const inf_deco =decode(pass)
+
+  console.log(inf_deco)
+
+  if (inf_deco.valido === false) {
+    return res.status(400).json({
+    error: 'La solicitud no fue válida. Por favor intenta nuevamente',
+    });
+    }
 
   let files;
   let location_occurrences = [];

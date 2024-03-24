@@ -107,19 +107,17 @@ let date_function_utc = Date.UTC(
 );
 date_function_utc = parseInt(date_function_utc.toString().slice(-longitud_date), 10)
 
-const diferencia = date_function_utc - got_date; // Calcular la diferencia en milisegundos
+const diferencia = Math.abs(date_function_utc - got_date);
 const diferencia_decisegundos = Math.floor(diferencia / 100); // Convertir la diferencia a décimas de segundo
 
 //console.log("Redondedo independiente:", Math.floor(got_date/100), Math.floor(date_function_utc/100));
 
 const response = {
-    "cadenaRecibida": password,
-    "fechaObtenida": got_date,
-    "fechaFunion": date_function,
+    "fechaFunción": date_function,
     "fechaFuncionUTC": date_function_utc,
+    "fechaObtenida": got_date,
     "Diferencia": diferencia,
-    "DiferenciaDec": diferencia_decisegundos,
-    "Válido": diferencia_decisegundos<6,
+    "valido": diferencia_decisegundos<6,
     }
 
 return response
