@@ -19,7 +19,7 @@ const final_noise = 2;
 const numberOfComponents = 3;
 const mapa_inverso = invertir(mapa);
 const middle_noise= 2;
-const limit_span = 10;
+const limit_span = 50;
 
 function invertir(objeto) {
     const objetoInverso = {};

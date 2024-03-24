@@ -8,13 +8,13 @@ async function builder(req, res) {
     res.setHeader('Access-Control-Allow-Origin', 'https://amlodice.vercel.app');
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    const body = req.body;
-    const { locations, download, pass } = body;
-
-    if (locations===undefined || download===undefined|| pass === undefined) {
-      return res.status(400).json({ error: 'Solicitud vacía'});
+    
+    if (req.body.locations===undefined || req.body.download===undefined|| req.body.pass === undefined) {
+      return res.status(400).json({ error: 'Your request is not valid'});
     }
 
+    const body = req.body;
+    const { locations, download, pass } = body;
     const inf_deco = decode(pass)
     console.log(inf_deco)
 

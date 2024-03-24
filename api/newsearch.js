@@ -14,8 +14,7 @@ async function newsearch(req, res) {
   }
 
   const inf_deco =decode(pass)
-
-  console.log(inf_deco)
+  console.log(inf_deco,phrase)
 
   if (inf_deco.valido === false) {
     return res.status(400).json({
