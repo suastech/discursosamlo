@@ -7,6 +7,7 @@ async function newsearch(req, res) {
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   const date_function = new Date();
+  const limit = 500;
 
   const { phrase, pass } = req.query;
   
@@ -52,8 +53,9 @@ async function newsearch(req, res) {
     }
   }
   main_counter = Object.values(main_counter);
+  location_occurrences= location_occurrences.slice(0,limit);
 
-  return res.json([location_occurrences, main_counter, inf_deco]);
+  return res.json([location_occurrences, main_counter]);
 }
 
 export default newsearch;

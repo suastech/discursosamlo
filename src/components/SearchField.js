@@ -26,6 +26,7 @@ const SearchField = (props) => {
   const exepciones = ["fox", "ine", "pri", "pan"];
   const externalList = Object.keys(main_historial.list_of_words);
 
+  console.log("loc:",locationOccurrences)
   const handleInput = (event) => {
     const inputValue = event.target.value;
     const sanitizedValue = inputValue.replace(/['"]/g, ''); // Eliminar comillas simples y dobles
@@ -91,8 +92,8 @@ async function launchsearch(phrase) {
                 setIsLoading(false);
           }
       }
-      if (newLocationOccurrences === undefined) newLocationOccurrences= [];
-      if (newMainCounter === undefined) newMainCounter= {};
+      if (newLocationOccurrences === undefined || newLocationOccurrences === null) newLocationOccurrences= [];
+      if (newMainCounter === undefined ||newLocationOccurrences === null) newMainCounter= {};
       setLocationOccurrences(newLocationOccurrences);
       setMainCounter(newMainCounter);
       const total = newMainCounter.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
@@ -122,8 +123,9 @@ const handleSearch = (phrase) => {
             !(phrase.length === 4 && phrase.includes(" "))   )
        )
         {
+            setWelcome(false)
             setDisplayChart(false)
-            setNumOfSearch(numOfSearch + 1); 
+            setNumOfSearch(prev => prev + 1); 
             launchsearch(phrase)
           }
       else {
@@ -189,7 +191,7 @@ return (
         
       </div>
 
-      {welcome && numOfSearch < 1 ?
+      {welcome?
        <div id='welcome-message'>
         <img id='closeButton' onClick={() => setWelcome(false)} 
         src={close} alt='close'/>

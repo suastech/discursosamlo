@@ -190,14 +190,14 @@ const limit_number_words = 10;
         </div>
 
         <button id="see-phrases-button" onClick={activatePhrases}
-                title={total>main_historial.limit_phrases? "La solicitud de frases no está activa para términos con demasiadas ocurrencias." : "Ver frases"}
-                disabled={displayPhrases === true || total === 0 || total>main_historial.limit_phrases} 
+                title={"La visualización de frases está limitada a las 500 ocurrencias más recientes."}
+                disabled={displayPhrases === true || total === 0} 
                 style={{
-                  cursor: displayPhrases || total === 0 || total > main_historial.limit_phrases ? 'not-allowed' : 'pointer',
-                  opacity:  displayPhrases || total === 0 || total > main_historial.limit_phrases ? '0.7' : '1'
+                  cursor: displayPhrases || total === 0 ? 'not-allowed' : 'pointer',
+                  opacity:  displayPhrases || total === 0 ? '0.7' : '1'
                 }}
                 >
-        Ver frases
+        Ver frases (máximo 500)
         </button>
 
       </div>

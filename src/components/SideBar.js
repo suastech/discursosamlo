@@ -67,8 +67,8 @@ return (
           Información
       <ul style={{textAlign:'left'}}>
         <li>El buscador contabiliza las coincidencias de una cadena de texto en una base compuesta por {main_historial.quantity.toLocaleString('es-MX')} discursos y muestra su frecuencia anual. Puedes realizar tus propias búsquedas o elegir de la lista de términos frecuentes.</li>
-        <li>Además, permite mostrar cada coincidencia y descargar un informe con todas las frases encontradas. Puedes hacer click sobre cada cita para ir a la página de la transcripción del evento.</li>
-        <li>Actualmente, la visualización de frases está restringida para palabras con más de {main_historial.limit_phrases} repeticiones. Si estás realizando una investigación destinada a revolucionar nuestra comprensión del país o el mundo y esta restricción la afecta sensiblemente, puedes contactar al programador para remediar la situación cuanto antes.</li>
+        <li>Además, permite mostrar las {main_historial.limit_phrases} coincidencias más recientes y descargar un informe con las frases encontradas. Puedes hacer click sobre cada cita para ir a la página de la transcripción del evento.</li>
+        <li>Si estás realizando una investigación destinada a revolucionar nuestra comprensión del país, el mundo o la era, y la restricción del número de frases mostradas la afecta sensiblemente, puedes contactar al programador para remediar la situación cuanto antes.</li>
         <li>En la sección de "Comparativos" puedes explorar grácficas temáticas y comparar términos frecuentes.</li>
         <li>El método de búsqueda devuelve coincidencias exactas (por ejemplo: la búsqueda de la cadena "neoliberal" no reconocerá como coincidencia la cadena "neoliberales"). No distingue entre minúsculas y mayúsculas, pero sí detecta acentos.</li>
         <li>El buscador no distingue entre palabras pronunciadas por el presidente y otros participantes de los distintos eventos. Si necesitas obtener una cita textual, puedes hacer click sobre la frase para ir a la página de la transcripción oficial para verificar el origen.</li>

@@ -15,7 +15,8 @@ const forbidden = [
     "primero", "casos", "incluso", "sistema", "queremos", "público", "primera", "mañana", "pueden", "construcción",
     "centavos", "dice", "pasado", "después", "seis", "durante", "cuenta", "asunto", "manuel", "quién", "adelante",
     "empresa", "intervención", "nivel", "elementos", "situación", "comisión", "director", "baja", "hacia", "nunca",
-    "compromiso", "hizo", "través", "hubo", "obrador", "primer", "personal", "atender", "decía", "lugar", "veces"
+    "compromiso", "hizo", "través", "hubo", "obrador", "primer", "personal", "atender", "decía", "lugar", "veces",
+    "interlocutor", "interlocutora"
 ];
 
 export default forbidden;

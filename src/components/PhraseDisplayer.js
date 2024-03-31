@@ -3,17 +3,22 @@ import { useState, useRef, useEffect } from "react";
 import MarkText from "./MarkText.js";
 import Download from "./Download.js";
 import main_historial from '../main_historial.js';
-import encode from './encode.js'
+import encode from './encode.js';
+import searchbuild from './searchbuild.js';
 
-const PhraseDisplayer = ({mainCounter, locationOccurrences, phraseToFind}) => {
+const PhraseDisplayer = ({mainCounter, locationOccurrences, setLocationOccurrences, phraseToFind, historial, setHistorial}) => {
   const phrasesPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const inputRef = useRef(null);
   const [phrasesToShow, setPhrasesToShow] = useState([]);
   const [isDownloading, setIsDownloading] = useState(false);
   const [finishedDownload, setFinishedDownload] = useState(false);
-  let pagesNeeded = Math.ceil(mainCounter.reduce((acumulador, numero) => acumulador + numero, 0)/ phrasesPerPage);
   const [isLoading, setIsLoading] = useState(true);
+  const pagesNeeded = mainCounter.reduce((acumulador, numero) => acumulador + numero, 0) <= main_historial.limit_phrases?
+  Math.ceil(mainCounter.reduce((acumulador, numero) => acumulador + numero, 0)/ phrasesPerPage)
+  :
+  Math.ceil(main_historial.limit_phrases/ phrasesPerPage)
+
 
   const handlePrevNext = (num) => {
     setIsLoading(true);
@@ -62,8 +67,26 @@ async function getThePhrases(locations) {
       catch (error) { console.error('Error en la solicitud:', error);}
 }
 
-  useEffect(() => {
+useEffect(() => {
   async function fetchData() {
+    console.log("locationOccurrences.length:",locationOccurrences.length)
+    if (locationOccurrences.length===0) {//Revisar si esta condición es correcta.
+      try {
+        console.log("se llama nueva")
+        const [newLocations, newPhrases] = await searchbuild(phraseToFind);
+          setLocationOccurrences(newLocations);
+          setPhrasesToShow(newPhrases);
+          setHistorial(prevHistorial => ({
+            ...prevHistorial,[prevHistorial.phraseToFind]: { // Accede a la clave "phraseToFind" del historial anterior
+              ...prevHistorial[prevHistorial.phraseToFind], // Copia el valor correspondiente a "phraseToFind"
+              locations: newLocations }}));
+          setIsLoading(false);
+        } catch (error) {
+          alert('Error al obtener las frases. Por favor actualice la página', error);
+          setIsLoading(false);
+        }
+    }
+    else {
     let locationsToGo;
     if (currentPage !== pagesNeeded) {
       locationsToGo = locationOccurrences.slice(
@@ -83,12 +106,13 @@ async function getThePhrases(locations) {
         alert('Error al obtener frases. Por favor actualice la página', error);
         setIsLoading(false);
       }
+    }
   }
   fetchData();
   }, [currentPage]);
 
   const handleDownload = async () => {
-    if (locationOccurrences.length<main_historial.limit_phrases) {
+    if (locationOccurrences.length<=main_historial.limit_phrases) {
       try {
         setIsDownloading(true);
         await Download(locationOccurrences, mainCounter, phraseToFind);

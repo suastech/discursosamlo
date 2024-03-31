@@ -21,7 +21,7 @@ async function builder(req, res) {
       });
       }
   
-      async function buildPhrases(locationsToGo, download) {
+async function buildPhrases(locationsToGo, download) {
     let listOfQuotes = [];
     let finalLocations = {}
       for (const [key, value] of locationsToGo) {
