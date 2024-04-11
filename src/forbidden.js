@@ -1,10 +1,10 @@
 const forbidden = [
-    "a la", "a los", "amlo:", "amlo", "para", "porque", "pero", "como", "también", "este", "presidente", "vamos", "vamos a", "todo",
+    "a la", "a los", "amlo:", "para", "porque", "pero", "como", "también", "este", "presidente", "vamos", "vamos a", "todo",
     "todos", "entonces", "esta", "tiene", "están", "esto", "gobierno", "estamos", "tenemos", "estado",
     "ahora", "sobre", "país", "nacional", "millones", "pues", "mucho", "desde", "cuando",
     "pesos", "estados", "señor", "nada", "estos", "bueno", "tienen", "gracias", "caso",
     "cómo", "gente", "hacer", "donde", "años", "días", "usted", "ciento", "hasta", "tres", "general", "bien",
-    "pregunta", "importante", "manera", "nuestro", "estar", "tener", "hace", "parte", "decir", "todas",
+    "pregunta", "importante", "intervención", "manera", "nuestro", "estar", "tener", "hace", "parte", "decir", "todas",
     "ellos", "hemos", "unidos", "mismo", "puede", "muchas", "tiempo", "personas", "tema", "ustedes", "había",
     "estas",  "sólo", "luego", "buenos", "además", "interlocutor", "siempre", "entre", "haciendo", "otros",
     "cada", "otro", "interlocutora", "secretario", "haya", "social", "ciudad", "toda", "ayer", "nuestra", "seguir",

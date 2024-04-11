@@ -26,7 +26,6 @@ const SearchField = (props) => {
   const exepciones = ["fox", "ine", "pri", "pan"];
   const externalList = Object.keys(main_historial.list_of_words);
 
-  console.log("loc:",locationOccurrences)
   const handleInput = (event) => {
     const inputValue = event.target.value;
     const sanitizedValue = inputValue.replace(/['"]/g, ''); // Eliminar comillas simples y dobles
