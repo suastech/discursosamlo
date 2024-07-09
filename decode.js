@@ -1,24 +1,19 @@
-/*Estructura:   xxxx
-                Verificador
-                DATE
-                xx
-                PASS
-                LENGTHCODED
-                xx;    */
+
 
 import mapa from './encypt/mapa.js'
 
 function decode(password, date_function) {
 
 const longitud_date = 9;
-let primo = 100267;
+let codeNumber = process.env.REACT_APP_NUMBER_CODE;
+
 //const rango_verificador = 70;
 const encode_length = 100;
 const final_noise = 2;
 const numberOfComponents = 3;
 const mapa_inverso = invertir(mapa);
 const middle_noise= 2;
-const limit_span = 120; //12 segundos
+const limit_span = 120; //12 seconds
 
 function invertir(objeto) {
     const objetoInverso = {};
@@ -77,7 +72,7 @@ const got_length = (password[password.length - (final_noise+1)]).charCodeAt(0) -
 const pass= password.substring(password.length - got_length - final_noise -1, password.length-(final_noise+1))
 //Decodificar pass: 
 const pass_deco = mapear_inverso(pass)
-const num_original = Math.round(pass_deco/primo)
+const num_original = Math.round(pass_deco/codeNumber)
 
 //Obtener verificador: 
 const verificador = password[4]

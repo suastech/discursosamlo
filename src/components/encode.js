@@ -5,7 +5,7 @@ import mapa from './mapa.js'
 
 function encode() {
 const longitud_date = 9;
-let primo = 100267;
+let codeNumber = process.env.REACT_APP_NUMBER_CODE;
 let verificador = '';
 let cadena = '';
 let numberOfComponents = 3;
@@ -60,7 +60,7 @@ for (let i = 0; i < numberOfComponents; i++) {
 }
 const verificadorDecimal = parseInt(verificador, 2);
 //const verificador_enmascarado = String.fromCharCode(verificadorDecimal+rango_verificador)
-const cifrado = ((parseInt(cadena, 10))*primo).toString()
+const cifrado = ((parseInt(cadena, 10))*codeNumber).toString()
 const showed_pass = mapear(cifrado)
 
 //GENERACIÓN Y ENCRIPTACIÓN DE FECHA

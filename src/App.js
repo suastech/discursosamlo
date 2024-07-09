@@ -15,6 +15,9 @@ function App() {
   const [isExtra, setIsExtra] = useState(false);
   const [isDownloadData, setIsDownloadData] = useState(false);
   
+  const numb = process.env.REACT_APP_NUMBER_CODE;
+
+  console.log(numb)
   return (
   <div className='full-content'>
     <Header/>
