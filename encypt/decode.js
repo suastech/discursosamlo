@@ -14,7 +14,7 @@ function decode(password) {
 
 const longitud_date = 9;
 let primo = 100267;
-const rango_verificador = 70;
+//const rango_verificador = 70;
 const encode_length = 100;
 const final_noise = 2;
 const numberOfComponents = 3;

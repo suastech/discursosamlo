@@ -10,7 +10,6 @@
 /archivos
 # production
 /build
-/encrypt
 
 /database
 serverfinder.js

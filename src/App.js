@@ -16,8 +16,9 @@ function App() {
   const [isDownloadData, setIsDownloadData] = useState(false);
   
   const numb = process.env.REACT_APP_NUMBER_CODE;
-
-  console.log(numb)
+  const site = process.env.POSTGRES_URL;
+  console.log(numb, site)
+  
   return (
   <div className='full-content'>
     <Header/>
