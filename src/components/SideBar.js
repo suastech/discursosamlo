@@ -13,7 +13,7 @@ import main_historial from '../main_historial.js'
 
 function SideBar(props) {
   const {isInfo, setIsInfo, isSupport, setIsSupport, isExtra, setIsExtra, isDownloadData, setIsDownloadData} = props
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
 
   const toggleSidebar = () => {
     setIsExpanded(!isExpanded);

@@ -29,11 +29,24 @@ function Printdata() {
       XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
       fileContent = XLSX.write(wb, { type: "buffer", bookType: "xlsx" });
     } else {
-      const csv = data.map((row) => row.join(",")).join("\n");
-      fileContent = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const escapeCSVValue = (value) => {
+        if (typeof value === 'string') {
+          // Escapar comillas dobles con comillas dobles adicionales
+          value = value.replace(/"/g, '""');
+          // Envolver el valor entre comillas dobles si contiene comas o comillas dobles
+          if (value.includes(',') || value.includes('"')) {
+            value = `"${value}"`;
+          }
+        }
+        return value;
+      };
+
+      const csv = data.map((row) => row.map(escapeCSVValue).join(",")).join("\n");
+      const bom = '\uFEFF';
+      const csvWithBom = bom + csv;
+      fileContent = new Blob([csvWithBom], { type: "text/csv;charset=utf-8;" });
     }
 
-    // Utilizar FileSaver.js para descargar el archivo
     const blob = new Blob([fileContent], {
       type: format
         ? "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
@@ -44,7 +57,7 @@ function Printdata() {
       `El discurso presidencial. Frecuencia de términos.${format ? "xlsx" : "csv"}`
     );
 
-    alert(`Datos descargados en formato ${format ? "XLSX" : "CSV"}`);
+    //alert(`Datos descargados en formato ${format ? "XLSX" : "CSV"}`);
   };
 
   return (

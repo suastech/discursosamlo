@@ -1,6 +1,6 @@
 
 
-import mapa from './encypt/mapa.js'
+import mapa from './src/components/mapa.js'
 
 function decode(password, date_function) {
 

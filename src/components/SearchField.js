@@ -72,15 +72,11 @@ async function launchsearch(phrase) {
     else  {
       let newLocationOccurrences;
       let newMainCounter;  
-      //Evaluar si la solicitud está en la lista externa
+
       if (externalList.includes(phrase)) {
-        try {
-          await new Promise(resolve => setTimeout(resolve, pause));
-          newLocationOccurrences = main_historial.list_of_words[phrase].locations;
-          newMainCounter= main_historial.list_of_words[phrase].counter;  
-        } catch (error) {
-          console.error("Error obteniendo información de externo", error);
-        }
+       await new Promise(resolve => setTimeout(resolve, pause));
+       newLocationOccurrences = main_historial.list_of_words[phrase].locations;
+       newMainCounter= main_historial.list_of_words[phrase].counter;
      } else {
          try {
           [newLocationOccurrences, newMainCounter] = await Finder(phrase);
@@ -91,8 +87,9 @@ async function launchsearch(phrase) {
                 setIsLoading(false);
           }
       }
-      if (newLocationOccurrences === undefined || newLocationOccurrences === null) newLocationOccurrences= [];
-      if (newMainCounter === undefined ||newLocationOccurrences === null) newMainCounter= {};
+
+      if (newLocationOccurrences === undefined || newLocationOccurrences === null) return;
+      
       setLocationOccurrences(newLocationOccurrences);
       setMainCounter(newMainCounter);
       const total = newMainCounter.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
