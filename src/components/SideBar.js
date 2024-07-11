@@ -20,11 +20,9 @@ function SideBar(props) {
   };
     
   const handleItem = (setSelected) => {
-    // Definimos un array con las 4 funciones Set
     const setFunctions = [setIsInfo, setIsSupport, setIsExtra, setIsDownloadData];
     setFunctions.forEach(func => {
-      // Si la función no coincide con setSelected, establecemos su valor a false
-      // De lo contrario, establecemos su valor a true
+     
       if (func !== setSelected) {
         func(false);
       } else {
@@ -46,13 +44,13 @@ return (
           :
           <>
             <img id='moreless' src={close} alt='seemore' onClick={toggleSidebar} />
-            <img className='item' src={info} alt='info' onClick={()=> handleItem(setIsInfo)} 
+            <img className='item' src={info} alt='info' title='Información' onClick={()=> handleItem(setIsInfo)} 
                  style={isInfo ? { boxShadow: '0 0 4px 4px rgb(3, 102, 132)' } : {}} />
-            <img className='item' src={support} alt='support' onClick={()=> handleItem(setIsSupport)}
+            <img className='item' src={support} title='Apoyar' alt='support' onClick={()=> handleItem(setIsSupport)}
                 style={isSupport ? { boxShadow: '0 0 4px 4px rgb(3, 102, 132)' } : {}}/>
-            <img className='item' src={extra} alt='extra' onClick={()=> handleItem(setIsExtra)}
+            <img className='item' src={extra} alt='extra' title='Créditos'  onClick={()=> handleItem(setIsExtra)}
                 style={isExtra ? { boxShadow: '0 0 4px 4px rgb(3, 102, 132)' } : {}}/>
-           <img className='item' src={descargar} alt='descargar' onClick={()=> handleItem(setIsDownloadData)}
+           <img className='item' src={descargar} alt='descargar' title='Descargar base de términos frecuentes' onClick={()=> handleItem(setIsDownloadData)}
                 style={isDownloadData ? { boxShadow: '0 0 4px 4px rgb(3, 102, 132)' } : {}}/>
           </>
         }
@@ -102,7 +100,7 @@ return (
                 src={close} alt='close'/>
         <h4>Créditos</h4>
         <p>Programación y diseño de este sitio: Jesús Suaste Cherizola</p>
-        <p>Página personal: https://suastech.github.io/</p>
+        <p>Página personal: <a href='https://jsuastech.netlify.app' target='blank' >https://jsuastech.netlify.app</a>  </p>
         <img src={creativeCommons} alt="creativeCommons"/>
     </div>
     }

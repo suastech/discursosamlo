@@ -14,11 +14,7 @@ function App() {
   const [isSupport, setIsSupport] = useState(false);
   const [isExtra, setIsExtra] = useState(false);
   const [isDownloadData, setIsDownloadData] = useState(false);
-  
-  const numb = process.env.REACT_APP_NUMBER_CODE;
-  const site = process.env.POSTGRES_URL;
-  console.log(numb, site)
-  
+   
   return (
   <div className='full-content'>
     <Header/>
