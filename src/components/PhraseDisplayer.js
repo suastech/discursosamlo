@@ -15,9 +15,9 @@ const PhraseDisplayer = ({mainCounter, locationOccurrences, setLocationOccurrenc
   const [finishedDownload, setFinishedDownload] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const pagesNeeded = mainCounter.reduce((acumulador, numero) => acumulador + numero, 0) <= main_historial.limit_phrases?
-  Math.ceil(mainCounter.reduce((acumulador, numero) => acumulador + numero, 0)/ phrasesPerPage)
-  :
-  Math.ceil(main_historial.limit_phrases/ phrasesPerPage)
+    Math.ceil(mainCounter.reduce((acumulador, numero) => acumulador + numero, 0)/ phrasesPerPage)
+    :
+    Math.ceil(main_historial.limit_phrases/ phrasesPerPage)
 
   const handlePrevNext = (num) => {
     setIsLoading(true);
@@ -68,10 +68,8 @@ const PhraseDisplayer = ({mainCounter, locationOccurrences, setLocationOccurrenc
 
   useEffect(() => {
   async function fetchData() {
-    console.log("locationOccurrences.length:",locationOccurrences.length)
-    if (locationOccurrences.length===0) {//Revisar si esta condición es correcta.
+    if (locationOccurrences.length===0) {
       try {
-        console.log("se llama nueva")
         const [newLocations, newPhrases] = await searchbuild(phraseToFind);
           setLocationOccurrences(newLocations);
           setPhrasesToShow(newPhrases);
@@ -187,7 +185,7 @@ const PhraseDisplayer = ({mainCounter, locationOccurrences, setLocationOccurrenc
                   key={index}
                   style={{ backgroundColor: element.id % 2 === 0 ? '#e0e0e0' : '' }}  >
               <div className="left-column">
-                <p> #{ (currentPage-1)*phrasesPerPage + element.id} <br/>
+                <p> #{ (currentPage-1)*phrasesPerPage + (index + 1)} <br/>
                   {element.date}  <br/>
                   {element.name}
                 </p>
@@ -218,7 +216,7 @@ const PhraseDisplayer = ({mainCounter, locationOccurrences, setLocationOccurrenc
         </>          
       }
 
-    </div>
+  </div>
   
   )
 };
