@@ -19,7 +19,6 @@ const PhraseDisplayer = ({mainCounter, locationOccurrences, setLocationOccurrenc
   :
   Math.ceil(main_historial.limit_phrases/ phrasesPerPage)
 
-
   const handlePrevNext = (num) => {
     setIsLoading(true);
     document.getElementById("change-page").value = "";
@@ -40,34 +39,34 @@ const PhraseDisplayer = ({mainCounter, locationOccurrences, setLocationOccurrenc
     }
   };
 
-async function getThePhrases(locations) {
-    try {
-        const body = {
-            locations: locations,
-            download: false,
-            pass: encode()
-        };
-        const response = await fetch('https://amlodice.vercel.app/api/builder', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(body)
-        });
-        if (response.ok) {
-            return await response.json();
-        } else {
-          if (response.status === 400) {
-              const errorData = await response.json();
-              console.error(errorData.error, response.status);
-              alert("Invalid request")
+  async function getThePhrases(locations) {
+      try {
+          const body = {
+              locations: locations,
+              download: false,
+              pass: encode()
+          };
+          const response = await fetch('https://amlodice.vercel.app/api/builder', {
+              method: 'POST',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify(body)
+          });
+          if (response.ok) {
+              return await response.json();
           } else {
-              console.error('Error al llamar a la API:', response.status);
+            if (response.status === 400) {
+                const errorData = await response.json();
+                console.error(errorData.error, response.status);
+                alert("Invalid request")
+            } else {
+                console.error('Error al llamar a la API:', response.status);
+            }
           }
         }
-      }
-      catch (error) { console.error('Error en la solicitud:', error);}
-}
+        catch (error) { console.error('Error en la solicitud:', error);}
+  }
 
-useEffect(() => {
+  useEffect(() => {
   async function fetchData() {
     console.log("locationOccurrences.length:",locationOccurrences.length)
     if (locationOccurrences.length===0) {//Revisar si esta condición es correcta.
@@ -175,28 +174,27 @@ useEffect(() => {
           )        
       }
       </div>
-      {isLoading? (
+
+      {isLoading? 
         <div id='phraseLoading'>
           <div className="circle"></div>
           <p>Cargando...</p>
         </div>
-        )
-        :
-        (<>
-          {
-          phrasesToShow.map((element, index) => (
-          <div  className="phrase-space"
-                key={index}
-                style={{ backgroundColor: element.id % 2 === 0 ? '#e0e0e0' : '' }}  >
-            <div className="left-column">
-              <p> #{ (currentPage-1)*phrasesPerPage + element.id} <br/>
-                {element.date}  <br/>
-                {element.name}
-              </p>
-            </div>
+      :
+        <>
+          {[...phrasesToShow].reverse().map((element, index) => (
+            <div  className="phrase-space"
+                  key={index}
+                  style={{ backgroundColor: element.id % 2 === 0 ? '#e0e0e0' : '' }}  >
+              <div className="left-column">
+                <p> #{ (currentPage-1)*phrasesPerPage + element.id} <br/>
+                  {element.date}  <br/>
+                  {element.name}
+                </p>
+              </div>
               <MarkText element={element.text} website={element.website} phraseToFind={phraseToFind}/>
-          </div>
-          ))
+            </div>
+            ))
           }
           <div className="top-bar" style={{borderTop:'1px solid black'}}>
               <p style={{marginLeft: '4px'}}> {"Mostrando página " + currentPage + "/" + pagesNeeded}
@@ -217,10 +215,9 @@ useEffect(() => {
                 
               </div>
           </div>
-        
         </>          
-        )
       }
+
     </div>
   
   )
