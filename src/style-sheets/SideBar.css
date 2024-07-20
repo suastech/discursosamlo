@@ -11,7 +11,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: 0.4s;
+    transition: .5s ease-in-out;
   }
  
 .sidebar #moreless {
@@ -42,7 +42,9 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  transition: 0.4s;
+  transition: .2s ease-in-out;
+  z-index: 2;
+  background-color: white;
 }
 
 .sidebar-expanded #moreless {

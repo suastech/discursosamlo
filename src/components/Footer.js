@@ -15,7 +15,7 @@ function Footer () {
 
       <div id='footercredits'>
           <p style={{marginBottom:'8px'}}>Programación y diseño:<br/>Jesús Suaste Cherizola</p>
-          <a href="https://suastech.github.io/" target="_blank" rel="noreferrer">https://suastech.github.io/</a>
+          <a href="https://jsuastech.netlify.app/" target="_blank" rel="noreferrer">https://jsuastech.netlify.app</a>
           <br/>
           <a href="https://twitter.com/suaste86" target="_blank" rel="noreferrer">@suaste86</a>
       </div>
