@@ -205,7 +205,9 @@ const limit_number_words = 10;
       <div className='phrase-displayer'>
        <PhraseDisplayer mainCounter={mainCounter} locationOccurrences={locationOccurrences} phraseToFind={phraseToFind}
        setLocationOccurrences={setLocationOccurrences}
-       historial={historial} setHistorial={setHistorial}/>
+       setHistorial={setHistorial}
+       setDisplayPhrases={setDisplayPhrases}
+       />
       </div>
       ) : null}
 

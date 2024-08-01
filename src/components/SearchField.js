@@ -88,7 +88,11 @@ async function launchsearch(phrase) {
           }
       }
 
-      if (newLocationOccurrences === undefined ) return;
+      if (newLocationOccurrences === undefined ) {
+        alert("Falló la conexión con el servidor");
+        setDisplayChart(false);
+        setIsLoading(false);
+      }
       
       setLocationOccurrences(newLocationOccurrences);
       setMainCounter(newMainCounter);

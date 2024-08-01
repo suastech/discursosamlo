@@ -6,7 +6,7 @@ import main_historial from '../main_historial.js';
 import encode from './encode.js';
 import searchbuild from './searchbuild.js';
 
-const PhraseDisplayer = ({mainCounter, locationOccurrences, setLocationOccurrences, phraseToFind, historial, setHistorial}) => {
+const PhraseDisplayer = ({mainCounter, locationOccurrences, setLocationOccurrences, phraseToFind, setHistorial, setDisplayPhrases}) => {
   const phrasesPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const inputRef = useRef(null);
@@ -68,19 +68,20 @@ const PhraseDisplayer = ({mainCounter, locationOccurrences, setLocationOccurrenc
 
   useEffect(() => {
   async function fetchData() {
-    if (locationOccurrences.length===0) {
+    if (locationOccurrences===null) {
       try {
         const [newLocations, newPhrases] = await searchbuild(phraseToFind);
           setLocationOccurrences(newLocations);
           setPhrasesToShow(newPhrases);
           setHistorial(prevHistorial => ({
-            ...prevHistorial,[prevHistorial.phraseToFind]: { // Accede a la clave "phraseToFind" del historial anterior
-              ...prevHistorial[prevHistorial.phraseToFind], // Copia el valor correspondiente a "phraseToFind"
+            ...prevHistorial,[prevHistorial.phraseToFind]: { 
+              ...prevHistorial[prevHistorial.phraseToFind],
               locations: newLocations }}));
           setIsLoading(false);
         } catch (error) {
           alert('Error al obtener las frases. Por favor actualice la página', error);
           setIsLoading(false);
+          setDisplayPhrases(false);
         }
     }
     else {
