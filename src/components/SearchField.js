@@ -46,7 +46,7 @@ function display_results(total) {
           setIsLoading(false)
           alert("Ninguna coincidencia encontrada");
       }
-    }
+  }
 
 async function launchsearch(phrase) {
     setIsInfo(false);
@@ -88,7 +88,7 @@ async function launchsearch(phrase) {
           }
       }
 
-      if (newLocationOccurrences === undefined || newLocationOccurrences === null) return;
+      if (newLocationOccurrences === undefined ) return;
       
       setLocationOccurrences(newLocationOccurrences);
       setMainCounter(newMainCounter);
@@ -131,7 +131,7 @@ const handleSearch = (phrase) => {
     }
 };
 
-  const handleHistorial = (event) => {
+const handleHistorial = (event) => {
     setDisplayChart(false)
     setOptionHistorial("Historial");
     const word = event.target.value;
